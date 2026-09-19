@@ -28,7 +28,7 @@ function CalloutsOverlay({ registry }) {
         <div
           key={callout.key}
           ref={reg(callout.key, "pos")}
-          className={`callout callout--${callout.side > 0 ? "right" : "left"}`}
+          className={`callout callout--${callout.side > 0 ? "right" : callout.side < 0 ? "left" : "center"}`}
         >
           <div ref={reg(callout.key, "box")} className="callout__box">
             <span className="callout__title">{callout.title}</span>

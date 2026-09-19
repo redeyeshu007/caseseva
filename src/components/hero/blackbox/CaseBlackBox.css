@@ -79,6 +79,13 @@
   text-align: left;
 }
 
+/* Bottom-centre callout: the label hangs below the end of its line, centred on it */
+.callout--center .callout__box {
+  align-items: center;
+  text-align: center;
+  transform: translateX(-50%);
+}
+
 .callout__title {
   font-family: var(--font-ui);
   font-size: 0.6875rem;

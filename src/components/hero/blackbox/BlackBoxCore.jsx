@@ -24,9 +24,9 @@ function BlackBoxCore({ progressRef, material }) {
     // Blink: a soft, steady heartbeat of light (about 1.4s a cycle), on top of the
     // stage-driven warmth. It never drops to dark, so the core always reads as lit.
     const beat = reducedMotion ? 1 : 0.5 + 0.5 * Math.sin(clock.elapsedTime * 4.5);
-    const shine = 0.45 + 0.55 * beat;
+    const shine = 0.3 + 0.7 * beat;
 
-    material.emissiveIntensity = (0.3 + level * 1.1) * shine;
+    material.emissiveIntensity = (0.2 + level * 0.8) * shine;
 
     const mesh = meshRef.current;
     if (mesh) {

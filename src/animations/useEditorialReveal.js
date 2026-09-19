@@ -12,7 +12,7 @@ import { useReducedMotion } from "../hooks/useReducedMotion";
  * something — the animation exists to introduce information, not to
  * decorate the page.
  */
-export function useEditorialReveal(ref, { start = "top 82%", once = true } = {}) {
+export function useEditorialReveal(ref, { start = "top 82%", once = false } = {}) {
   const reducedMotion = useReducedMotion();
 
   useEffect(() => {
@@ -80,6 +80,11 @@ export function useEditorialReveal(ref, { start = "top 82%", once = true } = {})
             ease: "power3.out",
             stagger: 0.045,
           }),
+        onLeaveBack: () => {
+          if (!once) {
+            gsap.set(spans, { opacity: 0, y: "0.5em", filter: "blur(8px)" });
+          }
+        }
       });
     }
 

@@ -9,17 +9,18 @@
  *   0.60  inner chambers locking
  *   0.80  everything converging on the core
  *
- * `side` is which side of the visual the label sits on (-1 left, 1 right) and
- * `row` the height of its leader line as a fraction of the visual's height.
+ * `side` is which side of the visual the label sits on (-1 left, 1 right, 0 bottom
+ * centre, where the leader drops from the anchor and the label sits under its end
+ * dot) and `row` the height of its leader line as a fraction of the visual's height.
  * Left labels take the upper/lower-left, right labels the right side, and rows
- * are spread so no two neighbouring stages can collide.
+ * are spread so that all five can stay on screen together without colliding.
  */
 export const CALLOUTS = [
   { key: "story", title: "Your story", note: "In your words", side: -1, row: 0.09, from: 0 },
-  { key: "facts", title: "Key facts", note: "What matters", side: 1, row: 0.27, from: 0.18 },
+  { key: "facts", title: "Key facts", note: "What matters", side: 1, row: 0.09, from: 0.18 },
   { key: "analyzed", title: "Analyzed", note: "Evidence + law", side: 1, row: 0.86, from: 0.4 },
   { key: "strategy", title: "Strategy", note: "The legal path", side: -1, row: 0.88, from: 0.6 },
-  { key: "ready", title: "Case ready", note: "Built to move forward", side: 1, row: 0.6, from: 0.8 },
+  { key: "ready", title: "Case ready", note: "Built to move forward", side: 0, row: 0.86, from: 0.8 },
 ];
 
 /**

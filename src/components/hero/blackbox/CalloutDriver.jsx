@@ -5,7 +5,7 @@ import { CALLOUTS, activeCallout } from "./calloutData";
 import { clamp01, range, smooth } from "./blackBoxMath";
 
 const easeOut = (t) => 1 - Math.pow(1 - clamp01(t), 4);
-const MIN_RUN = 12;
+const RUN_GAP = 8; // clear space between the end of the diagonal and the label text
 const LINE_OPACITY = 0.7;
 
 function hide(els) {
@@ -24,14 +24,15 @@ function hide(els) {
  * stay in step with it, and it writes to the DOM through refs so nothing
  * re-renders while scrolling.
  *
- * Sequence for the active stage: anchor dot → line grows → label fades in.
- * The previous stage stays as a dimmed echo; older ones retract.
+ * Sequence for a stage: anchor dot → line grows → label fades in. Once a stage
+ * has been revealed its line and label stay on screen; they only retract if the
+ * visitor scrolls back up past that stage.
  */
 function CalloutDriver({ registry, anchorsRef, progressRef, reducedMotion }) {
   const camera = useThree((state) => state.camera);
   const size = useThree((state) => state.size);
   const point = useRef(new THREE.Vector3());
-  const states = useRef(CALLOUTS.map(() => ({ g: 0, dim: 1, hidden: true })));
+  const states = useRef(CALLOUTS.map(() => ({ g: 0, dim: 1, hidden: true, w: 0, measuredFor: 0 })));
 
   useFrame((_, delta) => {
     const { width: W, height: H } = size;
@@ -47,12 +48,11 @@ function CalloutDriver({ registry, anchorsRef, progressRef, reducedMotion }) {
       if (!els) return;
 
       const isActive = i === active;
-      const isPrevious = !reducedMotion && i === active - 1;
-      const target = isActive || isPrevious ? 1 : 0;
+      const target = i <= active ? 1 : 0;
 
       const grow = reducedMotion ? 1 : 1 - Math.exp(-delta * (target ? 4.5 : 9));
       st.g += (target - st.g) * grow;
-      const dimTarget = isActive ? 1 : 0.32;
+      const dimTarget = isActive ? 1 : 0.8; // earlier stages stay clearly visible, just a touch quieter
       st.dim += (dimTarget - st.dim) * (reducedMotion ? 1 : 1 - Math.exp(-delta * 6));
 
       if (st.g < 0.002) {
@@ -73,15 +73,32 @@ function CalloutDriver({ registry, anchorsRef, progressRef, reducedMotion }) {
 
       // Elbow leader: 45° diagonal to the label's row, then a horizontal run out
       const ly = callout.row * H;
-      const endX = callout.side < 0 ? pad : W - pad;
-      let bendX = ax + callout.side * Math.abs(ly - ay);
-      bendX = callout.side < 0 ? Math.max(bendX, endX + MIN_RUN) : Math.min(bendX, endX - MIN_RUN);
+      const endX = callout.side === 0 ? W / 2 : callout.side < 0 ? pad : W - pad;
+      // Side callouts: the horizontal run is at least as long as the label, so the
+      // diagonal can never cut through the text. The bottom-centre callout (side 0)
+      // has no run: its line just drops from the anchor to the middle of the visual.
+      const centered = callout.side === 0;
+      let bendX = W / 2;
+      if (!centered) {
+        if (st.measuredFor !== W) {
+          st.w = els.box.offsetWidth;
+          st.measuredFor = W;
+        }
+        const run = st.w + RUN_GAP;
+        bendX = ax + callout.side * Math.abs(ly - ay);
+        bendX = callout.side < 0 ? Math.max(bendX, endX + run) : Math.min(bendX, endX - run);
+      }
 
       const lineProgress = reducedMotion ? 1 : easeOut(range(st.g, 0, 0.62));
       const labelProgress = reducedMotion ? 1 : smooth(range(st.g, 0.55, 1));
       const lineOpacity = LINE_OPACITY * (0.5 + 0.5 * st.dim);
 
-      els.path.setAttribute("d", `M${ax.toFixed(1)} ${ay.toFixed(1)}L${bendX.toFixed(1)} ${ly.toFixed(1)}L${endX.toFixed(1)} ${ly.toFixed(1)}`);
+      els.path.setAttribute(
+        "d",
+        centered
+          ? `M${ax.toFixed(1)} ${ay.toFixed(1)}L${endX.toFixed(1)} ${ly.toFixed(1)}`
+          : `M${ax.toFixed(1)} ${ay.toFixed(1)}L${bendX.toFixed(1)} ${ly.toFixed(1)}L${endX.toFixed(1)} ${ly.toFixed(1)}`
+      );
       els.path.style.strokeDashoffset = String(1 - lineProgress);
       els.path.style.opacity = String(lineOpacity);
 
@@ -93,10 +110,12 @@ function CalloutDriver({ registry, anchorsRef, progressRef, reducedMotion }) {
       els.dotEnd.setAttribute("cy", ly.toFixed(1));
       els.dotEnd.style.opacity = String(smooth(range(lineProgress, 0.9, 1)) * lineOpacity);
 
-      // Label sits just above the run, aligned to the outer end; it settles in from 6px out
-      els.pos.style.transform = `translate(${endX.toFixed(1)}px, ${(ly - 6).toFixed(1)}px)`;
+      // Side labels sit just above their run, aligned to the outer end, and settle in from
+      // 6px out. The centre label hangs 8px below its end dot and settles in from below.
+      els.pos.style.transform = `translate(${endX.toFixed(1)}px, ${(centered ? ly + 8 : ly - 6).toFixed(1)}px)`;
       els.box.style.opacity = String(labelProgress * st.dim);
-      els.box.style.translate = `${((1 - labelProgress) * 6 * callout.side).toFixed(2)}px 0`;
+      const slide = (1 - labelProgress) * 6;
+      els.box.style.translate = centered ? `0 ${slide.toFixed(2)}px` : `${(slide * callout.side).toFixed(2)}px 0`;
     });
   });
 

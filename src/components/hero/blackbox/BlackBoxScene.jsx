@@ -15,7 +15,7 @@ function Rig({ progressRef }) {
 
   useEffect(() => {
     const aspect = size.width / Math.max(1, size.height);
-    camera.position.set(0, 0.15, 14.5 * Math.max(1, 1.2 / aspect));
+    camera.position.set(0, 0.15, 14.2 * Math.max(1, 1 / aspect));
     camera.lookAt(0, 0, 0);
     camera.updateProjectionMatrix();
   }, [size, camera]);

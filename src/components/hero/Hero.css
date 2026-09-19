@@ -10,8 +10,6 @@
    target at 2048px, easing down through 1920 / 1600 / 1440 / laptop. */
 
 section.hero {
-  min-height: 100vh;
-  min-height: 100svh;
   display: flex;
   align-items: center;
   /* The composition is centred in the space between these paddings.
@@ -19,7 +17,7 @@ section.hero {
      navbar; the smaller bottom value stops the tall block running far
      below the fold. */
   padding-top: clamp(7.5rem, 8vw, 10rem);
-  padding-bottom: 6rem;
+  padding-bottom: 1rem;
 }
 
 .hero .hero__grid {
@@ -46,7 +44,10 @@ section.hero {
   grid-row: 1;
   pointer-events: none;
   position: relative;
-  height: min(70vh, 640px);
+  /* Fills the full height of its row (the same height as the copy column, so the row
+     and section stay exactly as tall as before) instead of a fixed 70vh box. */
+  align-self: stretch;
+  min-height: 450px;
   /* Hosts the Black Box scene (CaseBlackBox), which fills it absolutely. */
 }
 
