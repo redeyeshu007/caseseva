@@ -39,14 +39,21 @@ const resolveFontSize = (value, container, fontWeight, fontFamily) => {
   return size;
 };
 
-const waitForFonts = async font => {
+// Wait only for the font we actually draw (not document.fonts.ready, which waits on every font
+// on the page). The stylesheet is non-blocking, so retry until its @font-face is registered.
+const waitForFonts = async (font, timeout = 2500) => {
   if (!('fonts' in document)) return;
 
-  try {
-    await document.fonts.load(font);
-  } catch {}
-
-  await document.fonts.ready;
+  const start = performance.now();
+  while (performance.now() - start < timeout) {
+    try {
+      const faces = await document.fonts.load(font);
+      if (faces.length) return;
+    } catch {
+      return;
+    }
+    await new Promise(resolve => setTimeout(resolve, 60));
+  }
 };
 
 const ParticleText = ({
@@ -66,11 +73,16 @@ const ParticleText = ({
   fontWeight = 800,
   fontFamily = 'inherit',
   glow = true,
+  maxParticles: maxParticlesCap = 5200,
+  maxDpr = 2,
   className = '',
-  style
+  style,
+  onReady
 }) => {
   const containerRef = useRef(null);
   const canvasRef = useRef(null);
+  const onReadyRef = useRef(onReady);
+  onReadyRef.current = onReady;
 
   useEffect(() => {
     if (typeof window === 'undefined') return undefined;
@@ -124,22 +136,20 @@ const ParticleText = ({
       gathering = true;
     };
 
+    // Particles are pre-sorted by palette index, so fillStyle only changes a handful of times per frame
+    let currentColor = null;
     const drawParticle = particle => {
-      const size = particle.size;
-      ctx.fillStyle = particle.color;
-
-      if (size <= 2.1) {
-        ctx.fillRect(particle.x - size / 2, particle.y - size / 2, size, size);
-        return;
+      if (particle.color !== currentColor) {
+        currentColor = particle.color;
+        ctx.fillStyle = currentColor;
       }
-
-      ctx.beginPath();
-      ctx.arc(particle.x, particle.y, size / 2, 0, Math.PI * 2);
-      ctx.fill();
+      const size = particle.size;
+      ctx.fillRect(particle.x - size / 2, particle.y - size / 2, size, size);
     };
 
     const render = now => {
       ctx.clearRect(0, 0, width, height);
+      currentColor = null;
 
       if (glow && !reducedMotion) {
         ctx.shadowBlur = particleSize * 3;
@@ -214,7 +224,7 @@ const ParticleText = ({
 
       if (width <= 0 || height <= 0) return;
 
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      dpr = Math.min(window.devicePixelRatio || 1, maxDpr);
       canvas.width = Math.max(1, Math.floor(width * dpr));
       canvas.height = Math.max(1, Math.floor(height * dpr));
       canvas.style.width = '100%';
@@ -281,17 +291,24 @@ const ParticleText = ({
         }
       }
 
-      const maxParticles = Math.max(900, Math.min(5200, Math.floor((width * height) / 90)));
+      const maxParticles = Math.max(600, Math.min(maxParticlesCap, Math.floor((width * height) / 90)));
       const stride = Math.max(1, Math.ceil(targets.length / maxParticles));
       const baseRgb = hexToRgb(color);
       const highlightRgb = hexToRgb(highlightColor);
       const selected = targets.filter((_, index) => index % stride === 0);
 
+      // Quantise the colour blend into a small palette so per-frame colour parsing stays negligible
+      const PALETTE_STEPS = 6;
+      const palette = baseRgb && highlightRgb
+        ? Array.from({ length: PALETTE_STEPS + 1 }, (_, i) => rgbToCss(mixRgb(baseRgb, highlightRgb, i / PALETTE_STEPS)))
+        : null;
+
       particles = selected.map((target, index) => {
         const seed = ((index * 9301 + 49297) % 233280) / 233280;
         const depth = 0.45 + (((index * 233 + 97) % 1000) / 1000) * 0.9;
-        const blend = baseRgb && highlightRgb ? clamp(target.x / Math.max(1, width) + (seed - 0.5) * 0.35, 0, 1) : 0;
-        const particleColor = baseRgb && highlightRgb ? rgbToCss(mixRgb(baseRgb, highlightRgb, blend)) : color;
+        const blend = palette ? clamp(target.x / Math.max(1, width) + (seed - 0.5) * 0.35, 0, 1) : 0;
+        const paletteIndex = Math.round(blend * PALETTE_STEPS);
+        const particleColor = palette ? palette[paletteIndex] : color;
         const angle = seed * Math.PI * 2;
         const distance = (reducedMotion ? 0 : scatter) * (0.35 + depth * 0.75);
         const startX = target.x + Math.cos(angle) * distance + (seed - 0.5) * scatter * 0.45;
@@ -306,11 +323,13 @@ const ParticleText = ({
           targetY: target.y,
           size: Math.max(0.6, particleSize * (0.75 + target.alpha * 0.45)),
           color: particleColor,
+          paletteIndex,
           seed,
           depth,
           delay: seed * stagger
         };
       });
+      particles.sort((a, b) => a.paletteIndex - b.paletteIndex);
 
       pointer.x = width / 2;
       pointer.y = height / 2;
@@ -331,9 +350,17 @@ const ParticleText = ({
       }
 
       ensureRenderLoop();
+      onReadyRef.current?.();
     };
 
+    // ResizeObserver also fires once on observe(); skip that (and no-op resizes) so the
+    // heavy sampling doesn't run twice and restart the gather animation mid-flight.
     const queueSample = () => {
+      const rect = container.getBoundingClientRect();
+      // Mobile URL-bar show/hide only nudges the height; don't rebuild (and restart) for that
+      const widthChanged = Math.floor(rect.width) !== width;
+      const heightChanged = Math.abs(Math.floor(rect.height) - height) > 150;
+      if (!widthChanged && !heightChanged) return;
       if (resizeFrame) window.cancelAnimationFrame(resizeFrame);
       resizeFrame = window.requestAnimationFrame(sampleText);
     };
@@ -402,7 +429,9 @@ const ParticleText = ({
     fontSize,
     fontWeight,
     fontFamily,
-    glow
+    glow,
+    maxParticlesCap,
+    maxDpr
   ]);
 
   return (

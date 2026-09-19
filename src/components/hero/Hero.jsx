@@ -53,15 +53,15 @@ function Hero() {
             A case is not a search result
           </p>
           <h1 className="hero__headline">
-            <span className="hero__line hero__line--light">You tell it once.</span>
-            <span className="hero__line hero__line--lead">We build the case</span>
-            <span className="hero__line hero__line--italic">around it.</span>
+            <span className="hero__line hero__line--lead">Your story</span>
+            <span className="hero__line hero__line--connector">Becomes</span>
+            <span className="hero__line hero__line--accent">A case.</span>
           </h1>
           <p className="hero__support" data-hero-rest>
-            No Act to choose. No Section to type. No court to guess. Describe
-            what happened, upload whatever you have, and a legal team is
-            assembled for your case alone — then made to argue against itself
-            before a verified advocate ever signs it.
+            <span className="hero__support-line">Tell us what happened.</span>
+            <span className="hero__support-line hero__support-line--strong">
+              We figure out what matters.
+            </span>
           </p>
           <div className="hero__actions" data-hero-rest>
             <a href="#telling" className="hero__cta-primary">
@@ -69,9 +69,6 @@ function Hero() {
               <span className="hero__cta-arrow" aria-hidden="true">
                 →
               </span>
-            </a>
-            <a href="#assembly" className="hero__cta-secondary">
-              Watch a Case Get Built
             </a>
           </div>
         </div>

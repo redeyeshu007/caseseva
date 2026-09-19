@@ -34,7 +34,7 @@ export default function Navbar() {
             className="javix-navbar-logo"
             aria-label="CaseSeva — Back to top"
           >
-            <img src="/logo.png" alt="CaseSeva" style={{ height: '44px', width: 'auto', objectFit: 'contain' }} />
+            <img src="/logo.png" alt="CaseSeva" className="javix-navbar-logo-img" />
           </a>
 
           {/* ── Centered Marquee ── */}
@@ -91,7 +91,7 @@ export default function Navbar() {
             </a>
 
             {/* Settings Dropdown using StaggeredMenu */}
-            <div className="javix-navbar-settings-container" style={{ position: 'relative', width: '38px', height: '38px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div className="javix-navbar-settings-container">
               <StaggeredMenu 
                 position="right"
                 items={[

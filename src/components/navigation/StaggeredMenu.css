@@ -56,9 +56,12 @@
   transition: all 0.2s ease;
 }
 
-.sm-toggle:hover {
-  background-color: rgba(0, 0, 0, 0.05);
-  transform: rotate(45deg);
+/* Hover-capable devices only, so touch screens don't keep a stuck rotated state */
+@media (hover: hover) {
+  .sm-toggle:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    transform: rotate(45deg);
+  }
 }
 
 .sm-toggle:focus-visible {
@@ -223,19 +226,74 @@
   font-family: "DM Sans", sans-serif;
 }
 
+.sm-panel-logo-img {
+  display: block;
+  height: 75px;
+  width: auto;
+  object-fit: contain;
+}
+
+.sm-panel-cta-wrap {
+  margin-top: auto;
+  padding-top: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
 @media (max-width: 1024px) {
-  .staggered-menu-panel {
+  .staggered-menu-panel,
+  .sm-prelayers {
     width: 100%;
     left: 0;
     right: 0;
   }
+
+  .staggered-menu-panel {
+    height: 100vh;
+    height: 100dvh;
+  }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 767px) {
   .staggered-menu-panel {
+    padding: 6.25rem 1.25rem calc(1.5rem + env(safe-area-inset-bottom)) 1.25rem;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+
+  /* Vertically centered on the navbar row (0.9rem padding + 19px half-row) */
+  .sm-panel-logo-container {
+    top: 33.4px;
+    left: 1rem;
+  }
+
+  .sm-panel-logo-img {
+    height: 38px;
+  }
+
+  .sm-panel-item {
+    font-size: 1.6rem;
+    padding: 1rem 0;
+  }
+
+  .sm-panel-cta-wrap {
+    padding-top: 1.5rem;
+  }
+
+  .javix-navbar-cta.menu-cta-large {
     width: 100%;
-    left: 0;
-    right: 0;
+    max-width: 320px;
+  }
+}
+
+@media (max-width: 767px) and (max-height: 560px) {
+  .staggered-menu-panel {
+    padding-top: 5rem;
+  }
+
+  .sm-panel-item {
+    font-size: 1.3rem;
+    padding: 0.7rem 0;
   }
 }
 

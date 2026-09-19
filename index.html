@@ -4,18 +4,40 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CASESEVA</title>
+    <!-- Paint the preloader colour immediately instead of a white flash; removed once the preloader is gone -->
+    <style id="boot-style">html{background:#09090f}</style>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
     <link rel="preconnect" href="https://api.fontshare.com" />
     <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />
+
+    <!-- Font stylesheets are non-blocking (preload, then swap to stylesheet) so first paint isn't held up -->
     <link
-      href="https://api.fontshare.com/v2/css?f[]=general-sans@500,501,600&display=swap"
-      rel="stylesheet"
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@900&family=DM+Sans:wght@500;600;700;900&display=swap"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <link
+      rel="preload"
+      as="style"
+      href="https://api.fontshare.com/v2/css?f[]=general-sans@500,501,600&display=swap"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@900&family=DM+Sans:wght@500;600;700;900&family=Inter:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+      />
+      <link href="https://api.fontshare.com/v2/css?f[]=general-sans@500,501,600&display=swap" rel="stylesheet" />
+    </noscript>
   </head>
   <body>
     <div id="root"></div>

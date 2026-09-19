@@ -18,27 +18,45 @@ import Footer from "./components/footer/Footer";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
+  // The heavy page (3D backdrop, GSAP sections) mounts only when the preloader starts fading,
+  // so it doesn't compete with the particle animation for the main thread.
+  const [showContent, setShowContent] = useState(false);
 
   return (
     <>
-      {isLoading && <CaseSevaPreloader onComplete={() => setIsLoading(false)} />}
-      <SceneBackdrop />
-      <Navbar />
-      <main>
-        <Hero />
-        <CasesGoCold />
-        <Telling />
-        <Assembly />
-        <LivingRecord />
-        <Crossfire />
-        <Ledger />
-        <Compass />
-        <RobedHand />
-        <Seal />
-        <Boundaries />
-        <FinalCTA />
-      </main>
-      <Footer />
+      {isLoading && (
+        <CaseSevaPreloader
+          onExit={() =>
+            // Let the fade start first; mounting the page is a long task on phones
+            requestAnimationFrame(() => requestAnimationFrame(() => setShowContent(true)))
+          }
+          onComplete={() => {
+            document.getElementById("boot-style")?.remove();
+            setIsLoading(false);
+          }}
+        />
+      )}
+      {showContent && (
+        <>
+        <SceneBackdrop />
+        <Navbar />
+        <main>
+          <Hero />
+          <CasesGoCold />
+          <Telling />
+          <Assembly />
+          <LivingRecord />
+          <Crossfire />
+          <Ledger />
+          <Compass />
+          <RobedHand />
+          <Seal />
+          <Boundaries />
+          <FinalCTA />
+        </main>
+        <Footer />
+        </>
+      )}
     </>
   );
 }

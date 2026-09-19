@@ -355,6 +355,23 @@ export const StaggeredMenu = ({
     };
   }, [closeOnClickAway, open, closeMenu]);
 
+  // Full-screen panel on mobile: lock page scroll while open and allow Escape to close
+  React.useEffect(() => {
+    if (!open) return;
+
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    const handleKey = event => {
+      if (event.key === 'Escape') closeMenu();
+    };
+    document.addEventListener('keydown', handleKey);
+
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      document.removeEventListener('keydown', handleKey);
+    };
+  }, [open, closeMenu]);
+
   return (
     <div
       className={(className ? className + ' ' : '') + 'staggered-menu-wrapper' + (isFixed ? ' fixed-wrapper' : '')}
@@ -415,7 +432,7 @@ export const StaggeredMenu = ({
               src={logoUrl}
               alt="Logo"
               draggable={false}
-              style={{ height: '75px', width: 'auto', objectFit: 'contain' }}
+              className="sm-panel-logo-img"
             />
           </div>
         )}
@@ -448,10 +465,11 @@ export const StaggeredMenu = ({
           </ul>
         </div>
         
-        <div style={{ marginTop: 'auto', paddingTop: '2rem', display: 'flex', justifyContent: 'center' }}>
+        <div className="sm-panel-cta-wrap">
           <a
             href="#final-cta"
             className="javix-navbar-cta menu-cta-large"
+            onClick={closeMenu}
             onMouseEnter={() => setIsCtaHovered(true)}
             onMouseLeave={() => setIsCtaHovered(false)}
           >

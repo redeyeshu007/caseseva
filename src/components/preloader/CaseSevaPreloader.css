@@ -1,10 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;600;700;900&family=Cinzel:wght@400;500;600;700;800;900&display=swap');
-
 .caseseva-preloader {
   position: fixed;
   inset: 0;
   width: 100vw;
   height: 100vh;
+  height: 100dvh; /* avoids the mobile browser URL-bar jump */
   background-color: #ffffff;
   display: flex;
   align-items: center;
@@ -16,6 +15,9 @@
   font-family: 'DM Sans', sans-serif;
   opacity: 1;
   transition: opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  /* Own compositor layer: the fade stays smooth even while the page mounts behind it */
+  will-change: opacity;
+  transform: translateZ(0);
 }
 
 .caseseva-preloader.exiting {

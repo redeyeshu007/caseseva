@@ -15,13 +15,26 @@
 }
 
 .javix-navbar {
+  position: relative;
+  isolation: isolate;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 1.15rem 1.5rem 0.65rem 1.5rem; /* slightly increased top padding */
-  background-color: transparent;
   border-bottom: 1px solid transparent;
-  transition: all 0.3s ease-in-out;
+  transition: border-color 0.3s ease-in-out;
+}
+
+/* Scrolled background lives on a pseudo-element: a backdrop-filter on the nav itself
+   would become the containing block for the menu's position:fixed panel. */
+.javix-navbar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-color: rgba(255, 255, 255, 0);
+  transition: background-color 0.3s ease-in-out;
+  pointer-events: none;
 }
 
 @media (min-width: 1024px) {
@@ -32,10 +45,13 @@
 }
 
 .javix-navbar--scrolled {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06); /* border-black/[0.06] */
+}
+
+.javix-navbar--scrolled::before {
   background-color: rgba(255, 255, 255, 0.9); /* bg-white/90 */
   backdrop-filter: blur(12px); /* backdrop-blur-md */
   -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06); /* border-black/[0.06] */
 }
 
 /* Logo */
@@ -45,6 +61,13 @@
   display: flex;
   align-items: center;
   transition: opacity 0.2s ease;
+}
+
+.javix-navbar-logo-img {
+  display: block;
+  height: 44px;
+  width: auto;
+  object-fit: contain;
 }
 
 .javix-navbar-logo:hover {
@@ -155,6 +178,41 @@
   position: relative;
   display: flex;
   align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+}
+
+/* ── Mobile ── */
+@media (max-width: 767px) {
+  .javix-navbar {
+    padding: 0.9rem 1rem 0.5rem 1rem;
+    padding-top: max(0.9rem, env(safe-area-inset-top));
+  }
+
+  .javix-navbar-logo-img {
+    height: 38px;
+  }
+
+  /* Smaller pill: fixed width so the hover label swap never resizes it */
+  .javix-navbar-cta {
+    width: 148px;
+    padding: 0.5rem 0;
+    font-size: 12.5px;
+    gap: 0.35rem;
+  }
+
+  .javix-navbar-actions {
+    gap: 0.5rem;
+  }
+}
+
+/* Very small phones: the menu already carries the CTA */
+@media (max-width: 400px) {
+  .javix-navbar-actions > .javix-navbar-cta {
+    display: none;
+  }
 }
 
 .javix-navbar-settings-btn {
