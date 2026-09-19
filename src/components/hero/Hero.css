@@ -34,15 +34,20 @@ section.hero {
 }
 
 .hero__copy {
+  grid-row: 1;
   grid-column: 1 / span 7; /* box is wide enough for the large headline; text itself stays left of centre */
   min-width: 0;
 }
 
 .hero__visual {
   grid-column: 7 / -1;
+  /* Same row as the copy: the copy box now reaches into column 7, so without this
+     the grid would auto-place the visual on a second row below it. */
+  grid-row: 1;
+  pointer-events: none;
   position: relative;
   height: min(70vh, 640px);
-  /* Reserved, structurally integrated, and intentionally empty. */
+  /* Hosts the Black Box scene (CaseBlackBox), which fills it absolutely. */
 }
 
 /* Eyebrow — 15px at 2048 */

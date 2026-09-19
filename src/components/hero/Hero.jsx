@@ -2,6 +2,7 @@ import { useLayoutEffect, useRef } from "react";
 import { gsap, registerGsap } from "../../animations/gsapSetup";
 import { useReducedMotion } from "../../hooks/useReducedMotion";
 import DepthText from "../ui/DepthText";
+import CaseBlackBox from "./blackbox/CaseBlackBox";
 import "./Hero.css";
 
 /**
@@ -120,9 +121,11 @@ function Hero() {
           </div>
         </div>
 
-        {/* Reserved for the final realistic Justice / courtroom visual.
-            Intentionally empty — do not fill with a placeholder. */}
-        <div className="hero__visual" aria-hidden="true" />
+        {/* Right-hand visual: "The Black Box" (React Three Fiber). Self-contained and
+            absolutely positioned inside this slot. */}
+        <div className="hero__visual" aria-hidden="true">
+          <CaseBlackBox />
+        </div>
       </div>
     </section>
   );

@@ -59,7 +59,6 @@
 /* Hover-capable devices only, so touch screens don't keep a stuck rotated state */
 @media (hover: hover) {
   .sm-toggle:hover {
-    background-color: rgba(0, 0, 0, 0.05);
     transform: rotate(45deg);
   }
 }

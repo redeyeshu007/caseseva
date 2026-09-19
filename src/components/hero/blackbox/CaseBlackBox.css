@@ -1,0 +1,54 @@
+/* Fills the existing .hero__visual slot and nothing else: absolutely positioned,
+   so it can never change the hero's grid, height or the left column. */
+.blackbox {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.blackbox__stage {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.9s ease;
+}
+
+.blackbox__stage--ready {
+  opacity: 1;
+}
+
+.blackbox__stage canvas {
+  display: block;
+}
+
+/* Tiny caption, revealed once the case is formed */
+.blackbox__label {
+  position: absolute;
+  right: 0.25rem;
+  bottom: 0.25rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--font-ui);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #6b6e75;
+  opacity: 0;
+}
+
+.blackbox__label::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--color-brass);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blackbox__stage {
+    transition-duration: 0.2s;
+  }
+}
