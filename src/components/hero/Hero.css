@@ -15,11 +15,11 @@ section.hero {
   display: flex;
   align-items: center;
   /* The composition is centred in the space between these paddings.
-     Top clears the 80px navbar; the larger bottom value keeps the group
-     sitting just above true centre, so the CTA never floats high above
-     a dead zone. */
-  padding-top: 5.5rem;
-  padding-bottom: 8rem;
+     The generous top value keeps the eyebrow well clear of the 80px
+     navbar; the smaller bottom value stops the tall block running far
+     below the fold. */
+  padding-top: clamp(7.5rem, 8vw, 10rem);
+  padding-bottom: 6rem;
 }
 
 .hero .hero__grid {
@@ -34,7 +34,7 @@ section.hero {
 }
 
 .hero__copy {
-  grid-column: 1 / span 5; /* ≈ 42% of the section */
+  grid-column: 1 / span 7; /* box is wide enough for the large headline; text itself stays left of centre */
   min-width: 0;
 }
 
@@ -49,24 +49,26 @@ section.hero {
 .hero__copy .eyebrow {
   margin: 0;
   font-family: var(--font-ui);
-  font-size: clamp(0.875rem, 0.73vw, 0.9375rem);
+  font-size: clamp(1rem, 1.15vw, 1.5rem);
   font-weight: 600;
-  letter-spacing: 0.13em;
+  letter-spacing: 0.2em;
   color: #666666;
   opacity: 1;
 }
 
 /* Headline — three short uppercase lines, one accent.
-   The two large lines share one size (about 100px at 2048); "Becomes"
-   is a small, widely tracked connector so the eye lands on "A case."
-   in brass. Sized in vw so "YOUR STORY" always fits the 5-column copy. */
+   "YOUR STORY" sets the measure (≈8.7em wide); "A CASE." is scaled up
+   1.3× so the payoff is the largest thing on screen, in a brass
+   gradient. "Becomes" is a small, widely tracked connector between them. */
 .hero__headline {
-  --size-lead: clamp(2.75rem, 4.9vw, 6.25rem);
+  /* "YOUR STORY" ≈ 6.1em wide → ≈ 46vw at 7.6vw; the vh cap keeps the whole block
+     inside the fold on short laptop screens */
+  --size-lead: clamp(3rem, min(7.6vw, 13.5vh), 10rem);
 
   font-family: var(--font-hero);
   font-synthesis: none;
   text-transform: uppercase;
-  margin: clamp(1.5rem, 1.6vw, 2rem) 0 0;
+  margin: clamp(1.75rem, 2.6vw, 3.5rem) 0 0;
   color: #050505;
 }
 
@@ -75,35 +77,117 @@ section.hero {
   white-space: nowrap;
 }
 
-.hero__line--lead,
-.hero__line--accent {
+.hero__line--lead {
+  margin-left: calc(var(--size-lead) * -0.02); /* diagonal "Y" overshoots so it reads flush with the "B" stem */
   font-size: var(--size-lead);
   font-weight: 600;
-  letter-spacing: -0.03em;
-  line-height: 0.98;
+  letter-spacing: -0.035em;
+  line-height: 0.95;
 }
 
 .hero__line--connector {
-  font-size: calc(var(--size-lead) * 0.3);
+  margin-left: calc(var(--size-lead) * 0.2); /* nudged right of the headline's left edge */
+  font-size: calc(var(--size-lead) * 0.28);
   font-weight: 500;
-  letter-spacing: 0.32em;
+  letter-spacing: 0.42em;
   line-height: 1;
-  color: #666666;
-  padding: calc(var(--size-lead) * 0.16) 0 calc(var(--size-lead) * 0.2)
-    calc(var(--size-lead) * 0.04);
+  color: #777777;
+  /* Optically centred between the two big lines: the accent line's larger, tighter
+     box makes the visible gap below look smaller, so the bottom padding is larger. */
+  padding: calc(var(--size-lead) * 0.14) 0 calc(var(--size-lead) * 0.18) 0;
 }
 
 .hero__line--accent {
-  color: var(--color-brass);
+  margin-left: calc(var(--size-lead) * -0.03); /* diagonal "A" overshoots for the same reason */
+  font-size: calc(var(--size-lead) * 1.3);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  padding-bottom: 0.06em; /* keeps the descender area clear */
+}
+
+/* "A CASE." uses the DepthText component. It must inherit the accent line's exact
+   size, tracking and line-height so spacing and alignment stay unchanged. */
+.hero__line--accent .depth-text {
+  display: block;
+}
+
+.hero__line--accent .depth-text__layer,
+.hero__line--accent .depth-text__face {
+  font-size: 1em;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+}
+
+.hero__line--accent .depth-text__stage {
+  display: grid;
+  justify-content: start;
+  place-items: start;
+}
+
+/* Extruded sides stay a mid-dark gold so each letter keeps a clear edge against
+   the white page. */
+.hero__line--accent .depth-text__layer {
+  filter: saturate(1.05) brightness(0.95);
+}
+
+/* Soft brown-gold shadow lifts the letters off the white page */
+.hero__line--accent {
+  filter: drop-shadow(0 8px 12px rgba(110, 78, 6, 0.32));
+}
+
+/* The brass gradient lives on the front face only: a transparent text fill on the
+   parent would hide the extruded layers behind it. */
+.hero__line--accent .depth-text__face {
+  /* Polished-gold sheen: a narrow bright band travels across the letters on a loop */
+  /* The brightest stop stays a gold tint (never white): the page is white, so a
+     white highlight would disappear into the background. */
+  background: linear-gradient(
+    105deg,
+    #9a7208 0%,
+    #c9a227 18%,
+    #e6bf45 30%,
+    #f8de85 37%,
+    #e6bf45 44%,
+    #c9a227 58%,
+    #a67c0f 78%,
+    #d4ad35 100%
+  );
+  background-size: 260% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: hero-gold-shine 4.8s ease-in-out infinite;
+}
+
+@keyframes hero-gold-shine {
+  0%,
+  12% {
+    background-position: 100% 0;
+  }
+  70%,
+  100% {
+    background-position: 0% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__line--accent .depth-text__face {
+    animation: none;
+    background-position: 40% 0;
+  }
 }
 
 /* Supporting copy — two short lines, the second one carries the weight */
 .hero__support {
   font-family: var(--font-ui);
-  font-size: clamp(1.125rem, 1.05vw, 1.375rem);
-  line-height: 1.5;
-  margin: clamp(2rem, 2.2vw, 2.75rem) 0 0;
-  color: #666666;
+  font-size: clamp(1.4rem, 2.05vw, 2.75rem);
+  line-height: 1.45;
+  letter-spacing: -0.01em;
+  margin: clamp(2.25rem, 3.4vw, 4.5rem) 0 0;
+  color: #777777;
 }
 
 .hero__support-line {
@@ -122,50 +206,98 @@ section.hero {
   align-items: center;
   gap: clamp(2.5rem, 2.1vw, 3rem); /* 40–48px, ≈43px at 2048 */
   flex-wrap: wrap;
-  margin-top: clamp(2rem, 2.2vw, 2.75rem);
+  margin-top: clamp(2rem, 3vw, 4rem);
 }
 
+/* Same treatment as the navbar button: solid black pill, label and arrow swap on hover */
 .hero__cta-primary {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  height: clamp(52px, 2.75vw, 56px); /* 56px at 2048 */
-  padding: 0 clamp(1.625rem, 1.4vw, 1.875rem);
+  justify-content: center;
+  gap: 0.75rem;
+  height: clamp(60px, 4.4vw, 88px);
+  padding: 0 clamp(2rem, 2.8vw, 3.6rem);
   font-family: var(--font-ui);
-  font-size: clamp(0.95rem, 0.83vw, 1.0625rem); /* 17px at 2048 */
-  font-weight: 600;
-  letter-spacing: 0;
+  font-size: clamp(1.1rem, 1.45vw, 1.85rem);
+  font-weight: 700;
   white-space: nowrap;
-  color: var(--color-white);
+  color: #ffffff;
   background: #050505;
-  border-radius: 5px;
-  transition: background-color 0.24s ease, color 0.24s ease;
+  border-radius: 9999px;
+  transition: transform 0.2s ease;
 }
 
 .hero__cta-primary:hover,
 .hero__cta-primary:focus-visible {
-  background: var(--color-brass);
-  color: #050505;
+  transform: translateY(-1px);
 }
 
-.hero__cta-arrow {
-  display: inline-block;
-  transition: transform 0.24s var(--ease-editorial);
+.hero__cta-label {
+  display: grid;
 }
 
-.hero__cta-primary:hover .hero__cta-arrow,
-.hero__cta-primary:focus-visible .hero__cta-arrow {
-  transform: translateX(4px);
+.hero__cta-text {
+  grid-area: 1 / 1;
+  text-align: center;
+  transition: opacity 0.25s ease, transform 0.35s var(--ease-editorial);
+}
+
+.hero__cta-text--hover {
+  opacity: 0;
+  transform: translateY(0.6em);
+}
+
+.hero__cta-primary:hover .hero__cta-text--rest,
+.hero__cta-primary:focus-visible .hero__cta-text--rest {
+  opacity: 0;
+  transform: translateY(-0.6em);
+}
+
+.hero__cta-primary:hover .hero__cta-text--hover,
+.hero__cta-primary:focus-visible .hero__cta-text--hover {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hero__cta-icons {
+  display: grid;
+  width: 1.15em;
+  height: 1.15em;
+}
+
+.hero__cta-icon {
+  grid-area: 1 / 1;
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.25s ease, transform 0.35s var(--ease-editorial);
+}
+
+.hero__cta-icon--hover {
+  opacity: 0;
+  transform: translateX(-6px);
+}
+
+.hero__cta-primary:hover .hero__cta-icon--rest,
+.hero__cta-primary:focus-visible .hero__cta-icon--rest {
+  opacity: 0;
+  transform: translate(4px, -4px);
+}
+
+.hero__cta-primary:hover .hero__cta-icon--hover,
+.hero__cta-primary:focus-visible .hero__cta-icon--hover {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 .hero__cta-primary:focus-visible {
-  outline: 1px solid var(--color-brass);
+  outline: 2px solid var(--color-brass);
   outline-offset: 4px;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .hero__cta-primary,
-  .hero__cta-arrow {
+  .hero__cta-text,
+  .hero__cta-icon {
     transition: none;
   }
 }
@@ -185,7 +317,7 @@ section.hero {
   }
 
   .hero__headline {
-    --size-lead: clamp(3rem, 10vw, 5.5rem);
+    --size-lead: clamp(3rem, 10.5vw, 6.5rem);
   }
 
   .hero__visual {
@@ -201,11 +333,11 @@ section.hero {
   }
 
   .hero__headline {
-    /* column (viewport − 2 × 24px) ÷ "YOUR STORY" ≈ 6.6 em wide */
-    --size-lead: clamp(2.25rem, calc((100vw - 3rem) / 7), 4rem);
+    /* column (viewport − 2 × 24px) ÷ "YOUR STORY" ≈ 6.1 em wide, with headroom */
+    --size-lead: clamp(2.25rem, calc((100vw - 3rem) / 6.6), 4.5rem);
   }
 
   .hero__support {
-    font-size: 1.0625rem;
+    font-size: 1.25rem;
   }
 }

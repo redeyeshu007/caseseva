@@ -1,6 +1,7 @@
 import { useLayoutEffect, useRef } from "react";
 import { gsap, registerGsap } from "../../animations/gsapSetup";
 import { useReducedMotion } from "../../hooks/useReducedMotion";
+import DepthText from "../ui/DepthText";
 import "./Hero.css";
 
 /**
@@ -55,7 +56,22 @@ function Hero() {
           <h1 className="hero__headline">
             <span className="hero__line hero__line--lead">Your story</span>
             <span className="hero__line hero__line--connector">Becomes</span>
-            <span className="hero__line hero__line--accent">A case.</span>
+            <span className="hero__line hero__line--accent">
+              <DepthText
+                text="A case."
+                layers={22}
+                depth={1.4}
+                faceColor="#d9b23a"
+                depthColor="#7a5a08"
+                tilt={4.5}
+                pointerTracking
+                smoothing={0.14}
+                perspective={900}
+                autoOrbit
+                orbitSpeed={0.35}
+                shadow={false}
+              />
+            </span>
           </h1>
           <p className="hero__support" data-hero-rest>
             <span className="hero__support-line">Tell us what happened.</span>
@@ -65,9 +81,40 @@ function Hero() {
           </p>
           <div className="hero__actions" data-hero-rest>
             <a href="#telling" className="hero__cta-primary">
-              Tell It Once{" "}
-              <span className="hero__cta-arrow" aria-hidden="true">
-                →
+              {/* Both labels share one grid cell, so the pill keeps the width of the longer one */}
+              <span className="hero__cta-label">
+                <span className="hero__cta-text hero__cta-text--rest">Know Your Case</span>
+                <span className="hero__cta-text hero__cta-text--hover" aria-hidden="true">
+                  Save the Time
+                </span>
+              </span>
+              <span className="hero__cta-icons" aria-hidden="true">
+                <svg
+                  className="hero__cta-icon hero__cta-icon--rest"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M7 17L17 7" />
+                  <path d="M7 7h10v10" />
+                </svg>
+                <svg
+                  className="hero__cta-icon hero__cta-icon--hover"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M5 12h14" />
+                  <path d="m12 5 7 7-7 7" />
+                </svg>
               </span>
             </a>
           </div>
