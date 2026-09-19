@@ -1,0 +1,86 @@
+.seal__headline {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.9rem, 3.4vw, 2.7rem);
+  max-width: 22ch;
+  margin: 1rem 0 3.5rem;
+  color: var(--color-black);
+}
+
+.seal__documents {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  margin-bottom: 3.5rem;
+}
+
+.seal__card {
+  background: var(--color-ivory);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  padding: clamp(1.8rem, 4vw, 2.6rem);
+  min-height: 220px;
+  transition: transform 0.15s ease-out;
+  will-change: transform;
+}
+
+.seal__card-label {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.25rem;
+  color: var(--color-black);
+  margin-bottom: 0.9rem;
+}
+
+.seal__card-description {
+  margin: 0;
+  font-size: 0.92rem;
+  color: rgba(0, 0, 0, 0.65);
+  line-height: 1.55;
+}
+
+.seal__stamp-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  background: none;
+  border: 1px solid var(--color-brass);
+  color: var(--color-black);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  padding: 0.9rem 1.6rem;
+  border-radius: 2px;
+  transition: background-color 0.25s ease;
+}
+
+.seal__stamp-button:hover {
+  background: rgba(201, 162, 39, 0.1);
+}
+
+.seal__stamp-ring {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid var(--color-brass);
+  transition: background-color 0.3s ease;
+}
+
+.seal__stamp-button--sealed .seal__stamp-ring {
+  background: var(--color-brass);
+}
+
+.seal__footer {
+  margin-top: 3rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: rgba(0, 0, 0, 0.5);
+  line-height: 1.8;
+}
+
+@media (max-width: 720px) {
+  .seal__documents {
+    grid-template-columns: 1fr;
+  }
+}

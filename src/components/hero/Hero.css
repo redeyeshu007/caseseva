@@ -1,0 +1,228 @@
+/* `section.hero` / `.hero .hero__grid` (not bare classes) so these rules
+   beat the generic `.section` and `.container` rules from global.css,
+   which loads after this file.
+
+   Hero — 12-column grid inside a 1840px frame. Copy sits in columns
+   1–6; columns 7–12 stay intentionally empty for the future Justice /
+   courtroom visual.
+
+   Scale: everything is fluid (clamp + vw) and lands on the large-desktop
+   target at 2048px, easing down through 1920 / 1600 / 1440 / laptop. */
+
+section.hero {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  /* The composition is centred in the space between these paddings.
+     Top clears the 80px navbar; the larger bottom value keeps the group
+     sitting just above true centre, so the CTA never floats high above
+     a dead zone. */
+  padding-top: 5.5rem;
+  padding-bottom: 8rem;
+}
+
+.hero .hero__grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: clamp(1rem, 2vw, 1.5rem);
+  align-items: center;
+  width: 100%;
+  max-width: 1840px;
+  margin: 0 auto;
+  padding: 0 clamp(3rem, 3.2vw, 4rem);
+}
+
+.hero__copy {
+  grid-column: 1 / span 6;
+  min-width: 0;
+}
+
+.hero__visual {
+  grid-column: 7 / -1;
+  position: relative;
+  height: min(70vh, 640px);
+  /* Reserved, structurally integrated, and intentionally empty. */
+}
+
+/* Eyebrow — 15px at 2048 */
+.hero__copy .eyebrow {
+  margin: 0;
+  font-family: var(--font-ui);
+  font-size: clamp(0.875rem, 0.73vw, 0.9375rem);
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  color: #666666;
+  opacity: 1;
+}
+
+/* Headline — one modern grotesk, three sizes, one statement.
+   The lead line is the dominant element (90px at 2048, never above
+   92px); the first and last lines are derived from it so the
+   hierarchy holds at every viewport:
+     line 1  0.90 × lead   ≈ 81px at 2048
+     line 2  1.00 × lead   ≈ 90px at 2048
+     line 3  0.82 × lead   ≈ 74px at 2048 */
+.hero__headline {
+  --size-lead: clamp(2.75rem, 4.4vw, 5.625rem);
+
+  font-family: var(--font-hero);
+  font-synthesis: none;
+  letter-spacing: -0.025em;
+  line-height: 0.96;
+  max-width: 760px;
+  margin: clamp(1.75rem, 1.5vw, 2rem) 0 0; /* 28–32px */
+  color: #050505;
+}
+
+.hero__line {
+  display: block;
+  white-space: nowrap;
+}
+
+.hero__line--light {
+  font-size: calc(var(--size-lead) * 0.9);
+  font-weight: 500;
+}
+
+.hero__line--lead {
+  font-size: var(--size-lead);
+  font-weight: 600;
+}
+
+.hero__line--italic {
+  font-size: calc(var(--size-lead) * 0.82);
+  font-weight: 500;
+  font-style: italic;
+}
+
+/* Body — 19px at 2048, held to a compact 620px block */
+.hero__support {
+  font-family: var(--font-ui);
+  font-size: clamp(1.0625rem, 0.93vw, 1.1875rem);
+  font-weight: 400;
+  line-height: 1.6;
+  color: #353535;
+  max-width: 620px;
+  margin: clamp(2.625rem, 2.3vw, 3rem) 0 0; /* 42–48px */
+}
+
+/* Actions */
+.hero__actions {
+  display: flex;
+  align-items: center;
+  gap: clamp(2.5rem, 2.1vw, 3rem); /* 40–48px, ≈43px at 2048 */
+  flex-wrap: wrap;
+  margin-top: clamp(2.375rem, 2vw, 2.75rem); /* 38–44px */
+}
+
+.hero__cta-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: clamp(52px, 2.75vw, 56px); /* 56px at 2048 */
+  padding: 0 clamp(1.625rem, 1.4vw, 1.875rem);
+  font-family: var(--font-ui);
+  font-size: clamp(0.95rem, 0.83vw, 1.0625rem); /* 17px at 2048 */
+  font-weight: 600;
+  letter-spacing: 0;
+  white-space: nowrap;
+  color: var(--color-white);
+  background: #050505;
+  border-radius: 5px;
+  transition: background-color 0.24s ease, color 0.24s ease;
+}
+
+.hero__cta-primary:hover,
+.hero__cta-primary:focus-visible {
+  background: var(--color-brass);
+  color: #050505;
+}
+
+.hero__cta-arrow {
+  display: inline-block;
+  transition: transform 0.24s var(--ease-editorial);
+}
+
+.hero__cta-primary:hover .hero__cta-arrow,
+.hero__cta-primary:focus-visible .hero__cta-arrow {
+  transform: translateX(4px);
+}
+
+/* Secondary — thin brass underline that thickens slightly on hover */
+.hero__cta-secondary {
+  display: inline-block;
+  padding-bottom: 0.3rem;
+  font-family: var(--font-ui);
+  font-size: clamp(0.95rem, 0.83vw, 1.0625rem); /* 17px at 2048 */
+  font-weight: 500;
+  color: #050505;
+  background: linear-gradient(var(--color-brass), var(--color-brass)) no-repeat
+    0 100% / 100% 1px;
+  transition: transform 0.24s var(--ease-editorial),
+    background-size 0.24s var(--ease-editorial);
+}
+
+.hero__cta-secondary:hover,
+.hero__cta-secondary:focus-visible {
+  transform: translateY(-1px);
+  background-size: 100% 2px;
+}
+
+.hero__cta-primary:focus-visible,
+.hero__cta-secondary:focus-visible {
+  outline: 1px solid var(--color-brass);
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__cta-primary,
+  .hero__cta-arrow,
+  .hero__cta-secondary {
+    transition: none;
+  }
+}
+
+/* Tablet — single column, smaller headline, visual slot released */
+@media (max-width: 960px) {
+  /* Stay viewport-tall so the next act's background never bleeds in
+     above the fold; content remains vertically centred. */
+  section.hero {
+    align-items: center;
+    padding-top: 6rem;
+    padding-bottom: 4rem;
+  }
+
+  .hero__copy {
+    grid-column: 1 / -1;
+  }
+
+  .hero__headline {
+    --size-lead: clamp(2.75rem, 8vw, 4.25rem);
+  }
+
+  .hero__visual {
+    display: none;
+  }
+}
+
+/* Mobile — stacked; headline sized from the real column width so the
+   nowrap lines can never overflow, body 16–17px. */
+@media (max-width: 640px) {
+  .hero .hero__grid {
+    padding: 0 var(--container-pad-x);
+  }
+
+  .hero__headline {
+    /* column (viewport − 2 × 24px) ÷ the lead line's ≈8.3 em width */
+    --size-lead: clamp(2rem, calc((100vw - 3rem) / 8.5), 3.5rem);
+  }
+
+  .hero__support {
+    font-size: 1rem;
+  }
+
+  .hero__actions {
+    gap: 1.5rem;
+  }
+}

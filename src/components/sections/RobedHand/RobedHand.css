@@ -1,0 +1,94 @@
+.robed-hand__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: center;
+}
+
+.robed-hand__headline {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.9rem, 3.4vw, 2.7rem);
+  margin: 1rem 0 2.5rem;
+  color: var(--color-black);
+}
+
+.robed-hand__actions {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.robed-hand__action {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  font-size: 1rem;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.robed-hand__action-index {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--color-brass);
+}
+
+.robed-hand__visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.robed-hand__svg {
+  width: min(100%, 320px);
+}
+
+.robed-hand__document {
+  fill: var(--color-white);
+  stroke: rgba(0, 0, 0, 0.15);
+}
+
+.robed-hand__line {
+  stroke: rgba(0, 0, 0, 0.2);
+  stroke-width: 2;
+}
+
+.robed-hand__pen-body {
+  stroke: var(--color-brass);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.robed-hand__pen-nib {
+  fill: var(--color-brass);
+}
+
+.robed-hand__pen {
+  animation: robed-hand-write 4.5s ease-in-out infinite;
+  transform-origin: 200px 40px;
+}
+
+@keyframes robed-hand-write {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-4deg) translate(-3px, 2px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .robed-hand__pen {
+    animation: none;
+  }
+}
+
+@media (max-width: 860px) {
+  .robed-hand__grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;600;700;900&family=Cinzel:wght@400;500;600;700;800;900&display=swap');
+
+.caseseva-preloader {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  z-index: 9999;
+  font-family: 'DM Sans', sans-serif;
+  opacity: 1;
+  transition: opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.caseseva-preloader.exiting {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.caseseva-wordmark {
+  color: #000000;
+  text-transform: uppercase;
+  font-weight: 500;
+  /* clamp(min, preferred, max) */
+  font-size: clamp(32px, 5vw, 56px); 
+  letter-spacing: 0em;
+  
+  /* Initial State (0s) */
+  opacity: 0;
+  filter: blur(6px);
+  transform: translateY(8px);
+  letter-spacing: 0.1em;
+  
+  animation: revealWordmark 1.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.caseseva-preloader.exiting .caseseva-wordmark {
+  animation: exitWordmark 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes revealWordmark {
+  0% {
+    opacity: 0;
+    filter: blur(6px);
+    transform: translateY(8px);
+    letter-spacing: 0.1em;
+  }
+  24% { /* 0.35s / 1.45s */
+    opacity: 0.4;
+    filter: blur(4px);
+  }
+  75% { /* 1.10s / 1.45s */
+    opacity: 1;
+    filter: blur(0px);
+    transform: translateY(0);
+    letter-spacing: -0.01em;
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0px);
+    transform: translateY(0);
+    letter-spacing: -0.01em;
+  }
+}
+
+@keyframes exitWordmark {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+    letter-spacing: -0.01em;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-12px);
+    letter-spacing: -0.01em;
+  }
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .caseseva-wordmark {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+    letter-spacing: -0.01em;
+    animation: none;
+  }
+  
+  .caseseva-preloader {
+    transition: opacity 0.2s ease;
+  }
+
+  .caseseva-preloader.exiting .caseseva-wordmark {
+    animation: none;
+    opacity: 0;
+  }
+}

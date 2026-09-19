@@ -1,0 +1,221 @@
+/* CaseSeva Navbar translated from Javix (Vanilla CSS) */
+
+.javix-navbar-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  pointer-events: none;
+}
+
+.javix-navbar-wrapper {
+  width: 100%;
+  pointer-events: auto;
+}
+
+.javix-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.15rem 1.5rem 0.65rem 1.5rem; /* slightly increased top padding */
+  background-color: transparent;
+  border-bottom: 1px solid transparent;
+  transition: all 0.3s ease-in-out;
+}
+
+@media (min-width: 1024px) {
+  .javix-navbar {
+    padding-left: 2rem; /* lg:px-8 */
+    padding-right: 2rem;
+  }
+}
+
+.javix-navbar--scrolled {
+  background-color: rgba(255, 255, 255, 0.9); /* bg-white/90 */
+  backdrop-filter: blur(12px); /* backdrop-blur-md */
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06); /* border-black/[0.06] */
+}
+
+/* Logo */
+.javix-navbar-logo {
+  flex-shrink: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  transition: opacity 0.2s ease;
+}
+
+.javix-navbar-logo:hover {
+  opacity: 0.8;
+}
+
+/* Marquee */
+.javix-navbar-marquee-container {
+  display: none;
+  flex: 1;
+  margin: 0 2rem; /* mx-8 */
+  overflow: hidden;
+  position: relative;
+  /* Fade out edges using mask */
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+@media (min-width: 768px) {
+  .javix-navbar-marquee-container {
+    display: flex;
+  }
+}
+
+.javix-navbar-marquee {
+  display: flex;
+  white-space: nowrap;
+  align-items: center;
+  animation: javix-marquee-scroll 40s linear infinite;
+}
+
+.javix-navbar-marquee-content {
+  display: flex;
+  align-items: center;
+}
+
+.javix-navbar-marquee-item {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem; /* space-x-6 */
+  padding: 0 0.75rem; /* px-3 */
+}
+
+.javix-navbar-marquee-text {
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #0A0F0D;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.javix-navbar-marquee-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: #D4AF37; /* Shining Gold */
+}
+
+@keyframes javix-marquee-scroll {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+/* CTA */
+.javix-navbar-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 185px; /* Hardcoded width so the button never changes size */
+  gap: 0.5rem; /* space-x-2 */
+  background-color: #0A0F0D;
+  color: #ffffff !important;
+  padding: 0.6rem 0; /* Removing horizontal padding since width is fixed */
+  border-radius: 9999px; /* rounded-full */
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  z-index: 10;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.javix-navbar-cta:hover {
+  transform: translateY(-1px);
+}
+
+.javix-navbar-cta span {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.javix-navbar-cta-icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Actions Container */
+.javix-navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Settings Dropdown */
+.javix-navbar-settings-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.javix-navbar-settings-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #0A0F0D;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.javix-navbar-settings-btn:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  transform: rotate(45deg);
+}
+
+.javix-navbar-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 1rem;
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  min-width: 160px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  animation: dropdown-fade-in 0.2s ease-out;
+}
+
+.javix-navbar-dropdown a {
+  padding: 0.75rem 1rem;
+  text-decoration: none;
+  color: #0A0F0D;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.javix-navbar-dropdown a:hover {
+  background-color: #0A0F0D;
+  color: #FFFFFF;
+}
+
+@keyframes dropdown-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

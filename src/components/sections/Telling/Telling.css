@@ -1,0 +1,86 @@
+.telling__grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: start;
+}
+
+.telling__quote {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-style: italic;
+  font-size: clamp(1.35rem, 2.6vw, 1.9rem);
+  line-height: 1.5;
+  color: var(--color-black);
+  margin: 1rem 0 2.4rem;
+  border-left: 2px solid var(--color-brass);
+  padding-left: 1.4rem;
+}
+
+.telling__evidence {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+
+.telling__tag {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--color-black);
+  background: var(--color-ivory);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 0.5rem 0.85rem;
+  border-radius: 2px;
+}
+
+.telling__stages {
+  list-style: none;
+  margin: 2.5rem 0 0;
+  padding: 0;
+  border-left: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.telling__stage {
+  position: relative;
+  padding: 0 0 2.4rem 1.6rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: rgba(0, 0, 0, 0.35);
+  transition: color 0.4s ease;
+}
+
+.telling__stage-dot {
+  position: absolute;
+  left: -5px;
+  top: 0.2rem;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.2);
+  transition: background-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.telling__stage--past {
+  color: rgba(0, 0, 0, 0.55);
+}
+
+.telling__stage--past .telling__stage-dot {
+  background: var(--color-verified);
+}
+
+.telling__stage--active {
+  color: var(--color-black);
+}
+
+.telling__stage--active .telling__stage-dot {
+  background: var(--color-brass);
+  box-shadow: 0 0 0 4px rgba(201, 162, 39, 0.18);
+}
+
+@media (max-width: 860px) {
+  .telling__grid {
+    grid-template-columns: 1fr;
+  }
+}

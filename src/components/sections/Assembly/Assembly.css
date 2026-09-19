@@ -1,0 +1,78 @@
+.assembly {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.assembly__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: center;
+}
+
+.assembly__headline {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.9rem, 3.4vw, 2.7rem);
+  line-height: 1.3;
+  margin: 1rem 0 2.5rem;
+  max-width: 16ch;
+}
+
+.assembly__stages {
+  list-style: none;
+  margin: 0 0 2rem;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.assembly__stage {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.35);
+  transition: color 0.4s ease, letter-spacing 0.4s ease;
+}
+
+.assembly__stage--active {
+  color: var(--color-brass);
+  letter-spacing: 0.16em;
+}
+
+.assembly__domain {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.assembly__domain-value {
+  color: var(--color-brass);
+  font-weight: 600;
+}
+
+.assembly__scene {
+  position: relative;
+  height: min(60vh, 520px);
+  width: 100%;
+}
+
+.assembly__scene-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 1.4rem;
+}
+
+@media (max-width: 860px) {
+  .assembly__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .assembly__scene {
+    height: 320px;
+  }
+}
