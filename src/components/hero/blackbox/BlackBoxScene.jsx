@@ -1,7 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import BlackBoxLighting from "./BlackBoxLighting";
 import BlackBoxStructure from "./BlackBoxStructure";
+import CalloutDriver from "./CalloutDriver";
 
 /**
  * Keeps the object filling roughly 70% of the slot whatever its aspect
@@ -28,7 +29,19 @@ function Rig({ progressRef }) {
   return null;
 }
 
-function BlackBoxScene({ progressRef, pointerRef, tier, interactive, frameloop, onReady }) {
+function BlackBoxScene({
+  progressRef,
+  pointerRef,
+  tier,
+  interactive,
+  frameloop,
+  onReady,
+  calloutRegistry,
+  reducedMotion,
+}) {
+  // 3D anchor points on the cube geometry, shared by the structure and the callout driver
+  const anchorsRef = useRef({});
+
   return (
     <Canvas
       frameloop={frameloop}
@@ -47,6 +60,13 @@ function BlackBoxScene({ progressRef, pointerRef, tier, interactive, frameloop, 
         pointerRef={pointerRef}
         tier={tier}
         interactive={interactive}
+        anchorsRef={anchorsRef}
+      />
+      <CalloutDriver
+        registry={calloutRegistry}
+        anchorsRef={anchorsRef}
+        progressRef={progressRef}
+        reducedMotion={reducedMotion}
       />
     </Canvas>
   );

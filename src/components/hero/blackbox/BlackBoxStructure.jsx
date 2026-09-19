@@ -3,6 +3,7 @@ import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import BlackBoxCore from "./BlackBoxCore";
 import { LEVELS, easeInOut, lerp, range, smooth } from "./blackBoxMath";
+import { ANCHORS } from "./calloutData";
 
 const BRASS = "#c9a227";
 
@@ -42,7 +43,14 @@ function useBlackBoxAssets() {
       steel,
       plate,
       thread,
-      core: brass(),
+      // Polished, bright gold: smoother and lighter than the frame accents so it reads as shining
+      core: new THREE.MeshStandardMaterial({
+        color: "#f0cd5c",
+        metalness: 1,
+        roughness: 0.16,
+        emissive: BRASS,
+        emissiveIntensity: 0.4,
+      }),
       accents: LEVELS.map(brass),
     };
   }, []);
@@ -86,7 +94,7 @@ const RAIL_SIGNS = [
  * and twisted; as scroll progress reaches this level's `lock` point they
  * ease into a true cube.
  */
-function Level({ cfg, index, assets, progressRef }) {
+function Level({ cfg, index, assets, progressRef, anchorsRef }) {
   const groupRef = useRef(null);
   const frontRef = useRef(null);
   const backRef = useRef(null);
@@ -98,6 +106,21 @@ function Level({ cfg, index, assets, progressRef }) {
   const material = tone === "outer" ? assets.outer : assets.inner;
   const railMaterial = tone === "outer" ? assets.steel : assets.inner;
   const accent = assets.accents[index];
+
+  // Callout anchors that live on this chamber's front / back frame (they move with it)
+  const anchorsFor = (where) =>
+    Object.entries(ANCHORS)
+      .filter(([, a]) => a.level === index && a.where === where)
+      .map(([key, a]) => (
+        <object3D
+          key={key}
+          ref={(node) => {
+            if (node) anchorsRef.current[key] = node;
+            else delete anchorsRef.current[key];
+          }}
+          position={[a.corner[0] * edge, a.corner[1] * edge, 0]}
+        />
+      ));
 
   useFrame(({ clock }) => {
     const p = progressRef.current.value;
@@ -139,9 +162,11 @@ function Level({ cfg, index, assets, progressRef }) {
           position={[0, edge, bar / 2 + 0.002]}
           scale={[size * 0.62, bar * 0.14, 0.006]}
         />
+        {anchorsFor("front")}
       </group>
       <group ref={backRef}>
         <FrameBars size={size} bar={bar} geometry={assets.box} material={material} />
+        {anchorsFor("back")}
       </group>
 
       {RAIL_SIGNS.map(([sx, sy], i) => (
@@ -173,7 +198,7 @@ function Level({ cfg, index, assets, progressRef }) {
  * The Black Box: nested chambers around a brass core, plus a single brass
  * hairline that appears in the "raw story" state and is absorbed by the core.
  */
-function BlackBoxStructure({ progressRef, pointerRef, tier, interactive }) {
+function BlackBoxStructure({ progressRef, pointerRef, tier, interactive, anchorsRef }) {
   const assets = useBlackBoxAssets();
   const groupRef = useRef(null);
   const threadRef = useRef(null);
@@ -213,10 +238,17 @@ function BlackBoxStructure({ progressRef, pointerRef, tier, interactive }) {
   return (
     <group ref={groupRef}>
       {levels.map(({ cfg, index }) => (
-        <Level key={index} cfg={cfg} index={index} assets={assets} progressRef={progressRef} />
+        <Level key={index} cfg={cfg} index={index} assets={assets} progressRef={progressRef} anchorsRef={anchorsRef} />
       ))}
       <mesh ref={threadRef} geometry={assets.box} material={assets.thread} scale={[2.4, 0.014, 0.014]} position={[0, 0, 0.05]} />
       <BlackBoxCore progressRef={progressRef} material={assets.core} />
+      {/* "Case ready" attaches to the core itself */}
+      <object3D
+        ref={(node) => {
+          if (node) anchorsRef.current.ready = node;
+          else delete anchorsRef.current.ready;
+        }}
+      />
     </group>
   );
 }

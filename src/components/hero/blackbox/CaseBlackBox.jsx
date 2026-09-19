@@ -2,7 +2,7 @@ import { lazy, Suspense, useEffect, useLayoutEffect, useRef, useState } from "re
 import { ScrollTrigger, registerGsap } from "../../../animations/gsapSetup";
 import { useInView } from "../../../hooks/useInView";
 import { useReducedMotion } from "../../../hooks/useReducedMotion";
-import StageLabels, { STAGES, stageFromProgress } from "./StageLabels";
+import CalloutsOverlay from "./CalloutsOverlay";
 import "./CaseBlackBox.css";
 
 const BlackBoxScene = lazy(() => import("./BlackBoxScene"));
@@ -45,11 +45,11 @@ function CaseBlackBox() {
 
   const progressRef = useRef({ value: 0, target: 0 });
   const pointerRef = useRef({ x: 0, y: 0 });
+  const calloutRegistry = useRef({});
 
   const [mounted, setMounted] = useState(false);
   const [ready, setReady] = useState(false);
   const [frozen, setFrozen] = useState(false);
-  const [stage, setStage] = useState(0);
 
   const interactive = finePointer && !reducedMotion;
 
@@ -68,23 +68,16 @@ function CaseBlackBox() {
     if (!root || !section) return undefined;
 
     const progress = progressRef.current;
-    // Only re-renders when the stage actually changes (six times over the whole scroll)
-    const showStage = (p) => setStage((prev) => {
-      const next = stageFromProgress(p);
-      return next === prev ? prev : next;
-    });
 
     if (reducedMotion) {
       progress.value = 1;
       progress.target = 1;
-      showStage(1);
       return undefined;
     }
 
     registerGsap();
     progress.value = 0;
     progress.target = 0;
-    showStage(0);
 
     const trigger = ScrollTrigger.create({
       trigger: section,
@@ -95,7 +88,6 @@ function CaseBlackBox() {
       invalidateOnRefresh: true,
       onUpdate: (self) => {
         progress.target = self.progress;
-        showStage(self.progress);
       },
     });
 
@@ -122,7 +114,8 @@ function CaseBlackBox() {
     return () => clearTimeout(timer);
   }, [reducedMotion, ready]);
 
-  const frameloop = inView && !(reducedMotion && frozen) ? "always" : "never";
+  // Reduced motion: once settled, only redraw on demand (e.g. a resize)
+  const frameloop = !inView ? "never" : reducedMotion && frozen ? "demand" : "always";
 
   return (
     <div ref={rootRef} className="blackbox">
@@ -136,11 +129,13 @@ function CaseBlackBox() {
               interactive={interactive}
               frameloop={frameloop}
               onReady={() => setReady(true)}
+              calloutRegistry={calloutRegistry}
+              reducedMotion={reducedMotion}
             />
           </Suspense>
         )}
       </div>
-      <StageLabels active={Math.min(stage, STAGES.length - 1)} />
+      <CalloutsOverlay registry={calloutRegistry} />
     </div>
   );
 }
