@@ -22,33 +22,138 @@
   display: block;
 }
 
-/* Tiny caption, revealed once the case is formed */
-.blackbox__label {
+/* Stage labels: a quiet overlay in the top-right corner of the slot, clear of the
+   object. Text crossfades in place; a tiny rail beside it marks progress. */
+.blackbox-stage {
   position: absolute;
+  top: 0.25rem;
   right: 0.25rem;
-  bottom: 0.25rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-  font-family: var(--font-ui);
-  font-size: 0.6875rem;
-  font-weight: 600;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: #6b6e75;
-  opacity: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
 }
 
-.blackbox__label::before {
+.blackbox-stage__text {
+  display: grid;
+  text-align: right;
+}
+
+.blackbox-stage__item {
+  grid-area: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.3rem;
+  opacity: 0;
+  transform: translateY(3px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+.blackbox-stage__item.is-active {
+  opacity: 1;
+  transform: none;
+}
+
+.blackbox-stage__title {
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #111111;
+  white-space: nowrap;
+}
+
+.blackbox-stage__note {
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  color: #8a8a8a;
+  white-space: nowrap;
+}
+
+.blackbox-stage__rail {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  margin: 0.2rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* thin line running through the dots */
+.blackbox-stage__rail::before {
   content: "";
-  width: 5px;
-  height: 5px;
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  left: 50%;
+  width: 1px;
+  background: rgba(0, 0, 0, 0.14);
+  transform: translateX(-50%);
+}
+
+.blackbox-stage__dot {
+  position: relative;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  transition: background-color 0.4s ease, border-color 0.4s ease;
+}
+
+.blackbox-stage__dot.is-done {
+  background: #111111;
+  border-color: #111111;
+}
+
+.blackbox-stage__dot.is-active {
   background: var(--color-brass);
+  border-color: var(--color-brass);
+}
+
+/* Tablet: a little smaller and tighter */
+@media (max-width: 1279px) {
+  .blackbox-stage {
+    gap: 0.7rem;
+  }
+
+  .blackbox-stage__title {
+    font-size: 0.6875rem;
+    letter-spacing: 0.18em;
+  }
+
+  .blackbox-stage__note {
+    font-size: 0.6875rem;
+  }
+
+  .blackbox-stage__rail {
+    gap: 0.55rem;
+  }
+}
+
+/* Compact, in case the slot is ever shown on small screens: text only, no rail */
+@media (max-width: 640px) {
+  .blackbox-stage__rail {
+    display: none;
+  }
+
+  .blackbox-stage__title,
+  .blackbox-stage__note {
+    font-size: 0.625rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .blackbox__stage {
     transition-duration: 0.2s;
+  }
+
+  .blackbox-stage__item,
+  .blackbox-stage__dot {
+    transition-duration: 0.01s;
   }
 }

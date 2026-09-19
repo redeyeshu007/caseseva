@@ -11,8 +11,8 @@ function useBlackBoxAssets() {
   const assets = useMemo(() => {
     const box = new THREE.BoxGeometry(1, 1, 1);
 
-    const outer = new THREE.MeshStandardMaterial({ color: "#1c1d21", metalness: 0.55, roughness: 0.5 });
-    const inner = new THREE.MeshStandardMaterial({ color: "#0c0d0f", metalness: 0.5, roughness: 0.55 });
+    const outer = new THREE.MeshStandardMaterial({ color: "#18191c", metalness: 0.55, roughness: 0.5 });
+    const inner = new THREE.MeshStandardMaterial({ color: "#090a0c", metalness: 0.5, roughness: 0.55 });
     const steel = new THREE.MeshStandardMaterial({ color: "#55585e", metalness: 0.75, roughness: 0.42 });
     const plate = new THREE.MeshStandardMaterial({ color: "#060708", metalness: 0.2, roughness: 0.8 });
 

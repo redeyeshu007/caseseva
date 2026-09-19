@@ -2,7 +2,7 @@ import { lazy, Suspense, useEffect, useLayoutEffect, useRef, useState } from "re
 import { ScrollTrigger, registerGsap } from "../../../animations/gsapSetup";
 import { useInView } from "../../../hooks/useInView";
 import { useReducedMotion } from "../../../hooks/useReducedMotion";
-import { smooth, range } from "./blackBoxMath";
+import StageLabels, { STAGES, stageFromProgress } from "./StageLabels";
 import "./CaseBlackBox.css";
 
 const BlackBoxScene = lazy(() => import("./BlackBoxScene"));
@@ -38,7 +38,6 @@ function useMediaQuery(query) {
  */
 function CaseBlackBox() {
   const [rootRef, inView] = useInView({ threshold: 0.05 });
-  const labelRef = useRef(null);
   const reducedMotion = useReducedMotion();
   const isDesktop = useMediaQuery("(min-width: 961px)");
   const isFull = useMediaQuery("(min-width: 1280px)");
@@ -50,6 +49,7 @@ function CaseBlackBox() {
   const [mounted, setMounted] = useState(false);
   const [ready, setReady] = useState(false);
   const [frozen, setFrozen] = useState(false);
+  const [stage, setStage] = useState(0);
 
   const interactive = finePointer && !reducedMotion;
 
@@ -68,22 +68,23 @@ function CaseBlackBox() {
     if (!root || !section) return undefined;
 
     const progress = progressRef.current;
-    const label = labelRef.current;
-    const setLabel = (p) => {
-      if (label) label.style.opacity = String(smooth(range(p, 0.9, 1)));
-    };
+    // Only re-renders when the stage actually changes (six times over the whole scroll)
+    const showStage = (p) => setStage((prev) => {
+      const next = stageFromProgress(p);
+      return next === prev ? prev : next;
+    });
 
     if (reducedMotion) {
       progress.value = 1;
       progress.target = 1;
-      setLabel(1);
+      showStage(1);
       return undefined;
     }
 
     registerGsap();
     progress.value = 0;
     progress.target = 0;
-    setLabel(0);
+    showStage(0);
 
     const trigger = ScrollTrigger.create({
       trigger: section,
@@ -94,7 +95,7 @@ function CaseBlackBox() {
       invalidateOnRefresh: true,
       onUpdate: (self) => {
         progress.target = self.progress;
-        setLabel(self.progress);
+        showStage(self.progress);
       },
     });
 
@@ -139,9 +140,7 @@ function CaseBlackBox() {
           </Suspense>
         )}
       </div>
-      <span ref={labelRef} className="blackbox__label" aria-hidden="true">
-        Case built
-      </span>
+      <StageLabels active={Math.min(stage, STAGES.length - 1)} />
     </div>
   );
 }

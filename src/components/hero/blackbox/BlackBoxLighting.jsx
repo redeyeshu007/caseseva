@@ -31,9 +31,9 @@ function BlackBoxLighting({ tier }) {
       {tier === "full" && (
         <ContactShadows
           position={[0, -2.75, 0]}
-          opacity={0.32}
+          opacity={0.26}
           scale={8}
-          blur={2.8}
+          blur={3.2}
           far={4.5}
           resolution={256}
           color="#1a1408"
