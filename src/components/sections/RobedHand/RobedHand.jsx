@@ -28,9 +28,8 @@ const REASONS = [
 
 /**
  * Act IX — The Robed Hand / Human Advocate Capabilities.
- * Exact font style and structure from Handoverly_AI reference:
- * Cormorant Garamond serif headline, Inter body typography,
- * pure black background, and fully white text.
+ * Pinned scroll-driven reveal: pins the section while each card reveals
+ * one-by-one with scroll progression.
  */
 function RobedHand() {
   const sectionRef = useRef(null);
@@ -45,42 +44,91 @@ function RobedHand() {
     registerGsap();
 
     const items = itemsRef.current.filter(Boolean);
+    const header = headerRef.current;
 
     if (reducedMotion) {
-      gsap.set([headerRef.current, items], { opacity: 1, y: 0 });
+      gsap.set([header, items], { opacity: 1, y: 0, filter: "blur(0px)" });
       return undefined;
     }
 
-    gsap.set(headerRef.current, { opacity: 0, y: 24 });
-    gsap.set(items, { opacity: 0, y: 32 });
+    const mm = gsap.matchMedia();
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: section,
-        start: "top 70%",
-        toggleActions: "play none none none",
-      },
+    // Desktop: Pinned scrub reveal one-by-one with scroll
+    mm.add("(min-width: 769px)", () => {
+      gsap.set(header, { opacity: 0, y: 28 });
+      gsap.set(items, { opacity: 0, y: 40, filter: "blur(8px)" });
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: "top top",
+          end: "+=220%",
+          pin: true,
+          scrub: 0.8,
+          anticipatePin: 1,
+        },
+      });
+
+      tl.to(header, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" })
+        .to({}, { duration: 0.4 })
+        .to(
+          items[0],
+          { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.9, ease: "power2.out" }
+        )
+        .to({}, { duration: 0.4 })
+        .to(
+          items[1],
+          { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.9, ease: "power2.out" }
+        )
+        .to({}, { duration: 0.4 })
+        .to(
+          items[2],
+          { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.9, ease: "power2.out" }
+        )
+        .to({}, { duration: 0.4 })
+        .to(
+          items[3],
+          { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.9, ease: "power2.out" }
+        )
+        .to({}, { duration: 0.5 });
     });
 
-    tl.to(headerRef.current, {
-      opacity: 1,
-      y: 0,
-      duration: 0.9,
-      ease: "power2.out",
-    }).to(
-      items,
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        stagger: 0.14,
-        ease: "power2.out",
-      },
-      "-=0.4"
-    );
+    // Mobile: Sequential reveal as you scroll down
+    mm.add("(max-width: 768px)", () => {
+      gsap.fromTo(
+        header,
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.7,
+          scrollTrigger: {
+            trigger: header,
+            start: "top 80%",
+          },
+        }
+      );
+
+      items.forEach((item) => {
+        gsap.fromTo(
+          item,
+          { opacity: 0, y: 30, filter: "blur(6px)" },
+          {
+            opacity: 1,
+            y: 0,
+            filter: "blur(0px)",
+            duration: 0.7,
+            scrollTrigger: {
+              trigger: item,
+              start: "top 85%",
+            },
+          }
+        );
+      });
+    });
 
     return () => {
-      tl.kill();
+      mm.revert();
     };
   }, [reducedMotion]);
 
