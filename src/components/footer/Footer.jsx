@@ -4,34 +4,34 @@ import { useReducedMotion } from "../../hooks/useReducedMotion";
 import "./Footer.css";
 
 /**
- * CASESEVA Footer — Cinematic Minimal Black Statement.
+ * CASESEVA Footer — Minimal White Section with Giant Logo.
  * Features:
- * - Pure black #000000 background
- * - Dominant, giant CASESEVA typographic object
+ * - Pure white #ffffff background
+ * - Dominant, giant official CASESEVA logo
  * - Subtle entrance reveal on scroll
- * - Strict black & white color palette
+ * - Crisp black text for copyright and developer credits
  * - Refined green technological signal interaction on "Green Sync Innovators."
  */
 function Footer() {
   const footerRef = useRef(null);
-  const wordmarkRef = useRef(null);
+  const logoRef = useRef(null);
   const bottomRef = useRef(null);
   const reducedMotion = useReducedMotion();
 
   useEffect(() => {
     const footer = footerRef.current;
-    const wordmark = wordmarkRef.current;
+    const logo = logoRef.current;
     const bottom = bottomRef.current;
-    if (!footer || !wordmark) return undefined;
+    if (!footer || !logo) return undefined;
 
     registerGsap();
 
     if (reducedMotion) {
-      gsap.set([wordmark, bottom], { opacity: 1, y: 0 });
+      gsap.set([logo, bottom], { opacity: 1, y: 0 });
       return undefined;
     }
 
-    gsap.set(wordmark, { opacity: 0, y: 30 });
+    gsap.set(logo, { opacity: 0, y: 30 });
     if (bottom) gsap.set(bottom, { opacity: 0 });
 
     const tl = gsap.timeline({
@@ -42,7 +42,7 @@ function Footer() {
       },
     });
 
-    tl.to(wordmark, {
+    tl.to(logo, {
       opacity: 1,
       y: 0,
       duration: 1.1,
@@ -66,15 +66,18 @@ function Footer() {
     <footer
       id="footer"
       ref={footerRef}
-      className="footer on-dark"
-      data-bg="#000000"
+      className="footer on-light"
+      data-bg="#ffffff"
       role="contentinfo"
       aria-label="Footer"
     >
-      <div className="footer__wordmark-wrap">
-        <h2 ref={wordmarkRef} className="footer__giant-wordmark">
-          CASESEVA
-        </h2>
+      <div className="footer__logo-wrap">
+        <img
+          ref={logoRef}
+          src="/logo.png"
+          alt="CASESEVA"
+          className="footer__giant-logo"
+        />
       </div>
 
       <div className="footer__bottom-wrap">

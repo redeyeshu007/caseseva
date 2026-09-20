@@ -1,13 +1,13 @@
 /* ==========================================================================
-   CASESEVA Cinematic Minimal Footer
-   Pure Black & White with subtle green technological interaction
+   CASESEVA Footer — Minimal White Section with Giant Logo
+   Pure White Background, Black Typography & Refined Green Interaction
    ========================================================================== */
 
 footer.footer {
   position: relative;
   width: 100%;
-  background-color: #000000 !important;
-  color: #ffffff;
+  background-color: #ffffff !important;
+  color: #000000;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -18,33 +18,29 @@ footer.footer {
 }
 
 /* --------------------------------------------------------------------------
-   Giant Typographic CASESEVA Wordmark
+   Giant Official CASESEVA Logo
    -------------------------------------------------------------------------- */
 
-.footer__wordmark-wrap {
+.footer__logo-wrap {
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: clamp(70px, 12vh, 140px) var(--container-pad-x, clamp(1.5rem, 6vw, 6rem)) clamp(50px, 9vh, 100px);
+  padding: clamp(60px, 10vh, 120px) var(--container-pad-x, clamp(1.5rem, 6vw, 6rem)) clamp(40px, 7vh, 80px);
   box-sizing: border-box;
   overflow: hidden;
 }
 
-.footer__giant-wordmark {
-  margin: 0;
-  padding: 0;
-  font-family: var(--font-hero, var(--font-body));
-  font-size: clamp(3rem, 14.5vw, 17.5rem);
-  font-weight: 800;
-  color: #ffffff;
-  line-height: 0.88;
-  letter-spacing: -0.04em;
-  text-transform: uppercase;
-  text-align: center;
-  white-space: nowrap;
-  text-shadow: 0 0 40px rgba(255, 255, 255, 0.12), 0 0 90px rgba(255, 255, 255, 0.05);
+.footer__giant-logo {
+  width: 92%;
+  max-width: clamp(340px, 86vw, 1200px);
+  height: auto;
+  max-height: clamp(90px, 18vh, 220px);
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
   will-change: transform, opacity;
+  filter: drop-shadow(0 2px 12px rgba(0, 0, 0, 0.04));
 }
 
 /* --------------------------------------------------------------------------
@@ -53,7 +49,7 @@ footer.footer {
 
 .footer__bottom-wrap {
   width: 100%;
-  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
   box-sizing: border-box;
 }
 
@@ -61,7 +57,7 @@ footer.footer {
   width: 100%;
   max-width: var(--max-width, 1440px);
   margin: 0 auto;
-  padding: clamp(24px, 3.5vh, 36px) var(--container-pad-x, clamp(1.5rem, 6vw, 6rem));
+  padding: clamp(22px, 3.2vh, 32px) var(--container-pad-x, clamp(1.5rem, 6vw, 6rem));
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -69,15 +65,15 @@ footer.footer {
   font-family: var(--font-body);
   font-size: clamp(0.78rem, 0.9vw, 0.88rem);
   line-height: 1.5;
-  color: #ffffff;
+  color: #000000;
 }
 
 .footer__copyright {
   margin: 0;
   padding: 0;
-  color: #ffffff;
-  opacity: 0.82;
-  font-weight: 400;
+  color: #000000;
+  opacity: 0.75;
+  font-weight: 500;
   letter-spacing: 0.01em;
 }
 
@@ -85,13 +81,13 @@ footer.footer {
   display: flex;
   align-items: center;
   gap: 0.35rem;
-  color: #ffffff;
-  font-weight: 400;
+  color: #000000;
+  font-weight: 500;
 }
 
 .footer__credit-prefix {
-  color: #ffffff;
-  opacity: 0.82;
+  color: #000000;
+  opacity: 0.75;
 }
 
 /* --------------------------------------------------------------------------
@@ -104,15 +100,15 @@ footer.footer {
   display: inline-flex;
   align-items: center;
   text-decoration: none;
-  color: #ffffff;
+  color: #000000;
   padding-bottom: 2px;
   cursor: pointer;
 }
 
 .footer__dev-name {
-  color: #ffffff;
-  font-weight: 500;
-  transition: color 0.4s ease, text-shadow 0.4s ease;
+  color: #000000;
+  font-weight: 600;
+  transition: color 0.35s ease, text-shadow 0.35s ease;
 }
 
 .footer__dev-track {
@@ -131,8 +127,8 @@ footer.footer {
   left: 0;
   width: 100%;
   height: 1.5px;
-  background-color: #22c55e;
-  box-shadow: 0 0 8px rgba(34, 197, 94, 0.5), 0 0 16px rgba(34, 197, 94, 0.25);
+  background-color: #16a34a;
+  box-shadow: 0 0 6px rgba(22, 163, 74, 0.45);
   transform: scaleX(0);
   transform-origin: left;
   opacity: 0;
@@ -146,8 +142,8 @@ footer.footer {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background-color: #22c55e;
-  box-shadow: 0 0 6px #22c55e, 0 0 14px 2px rgba(34, 197, 94, 0.7);
+  background-color: #16a34a;
+  box-shadow: 0 0 6px #16a34a, 0 0 12px 2px rgba(22, 163, 74, 0.5);
   opacity: 0;
   pointer-events: none;
 }
@@ -155,8 +151,8 @@ footer.footer {
 /* Active state on hover and keyboard focus */
 .footer__dev-link:hover .footer__dev-name,
 .footer__dev-link:focus-visible .footer__dev-name {
-  color: #ebfaef;
-  text-shadow: 0 0 10px rgba(34, 197, 94, 0.3);
+  color: #15803d;
+  text-shadow: 0 0 8px rgba(22, 163, 74, 0.25);
 }
 
 .footer__dev-link:hover .footer__dev-line,
@@ -171,7 +167,7 @@ footer.footer {
 }
 
 .footer__dev-link:focus-visible {
-  outline: 1.5px solid #22c55e;
+  outline: 1.5px solid #16a34a;
   outline-offset: 3px;
   border-radius: 2px;
 }
@@ -189,7 +185,7 @@ footer.footer {
   50% {
     opacity: 1;
     transform: scale(1.35);
-    box-shadow: 0 0 8px #22c55e, 0 0 18px 3px rgba(34, 197, 94, 0.85);
+    box-shadow: 0 0 8px #16a34a, 0 0 16px 2px rgba(22, 163, 74, 0.7);
   }
   85% {
     opacity: 0.85;
@@ -207,20 +203,20 @@ footer.footer {
    -------------------------------------------------------------------------- */
 
 @media (max-width: 768px) {
-  .footer__wordmark-wrap {
-    padding: clamp(50px, 9vh, 80px) var(--container-pad-x, 1.5rem) clamp(35px, 6vh, 60px);
+  .footer__logo-wrap {
+    padding: clamp(45px, 8vh, 70px) var(--container-pad-x, 1.5rem) clamp(30px, 5vh, 50px);
   }
 
-  .footer__giant-wordmark {
-    font-size: clamp(2.4rem, 13.8vw, 4.2rem);
-    letter-spacing: -0.03em;
+  .footer__giant-logo {
+    width: 96%;
+    max-width: 90vw;
   }
 
   .footer__bottom {
     flex-direction: column;
     align-items: flex-start;
-    gap: 1rem;
-    padding: 24px var(--container-pad-x, 1.5rem);
+    gap: 0.85rem;
+    padding: 20px var(--container-pad-x, 1.5rem);
   }
 
   .footer__credit {
