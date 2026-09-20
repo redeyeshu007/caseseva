@@ -6,25 +6,21 @@ import "./RobedHand.css";
 const REASONS = [
   {
     id: "01",
-    tag: "CLARIFY",
     title: "Strike a Ground",
     desc: "Remove a legal allegation the evidence does not justify.",
   },
   {
     id: "02",
-    tag: "VERIFY",
     title: "Correct the Record",
     desc: "Fix a fact, a date, or an amount.",
   },
   {
     id: "03",
-    tag: "STRENGTHEN",
     title: "Demand a Document",
     desc: "Send the case back to the client for proof.",
   },
   {
     id: "04",
-    tag: "REASSESS",
     title: "Re-Open the Analysis",
     desc: "Trigger a focused re-run of only affected analysis.",
   },
@@ -32,9 +28,9 @@ const REASONS = [
 
 /**
  * Act IX — The Robed Hand / Human Advocate Capabilities.
- * Full-viewport dark editorial layout inspired by Handoverly_AI reasons-editorial:
- * 2 items on the left, 2 items on the right (2x2 grid),
- * deep black background, white text, brass watermark numerals, and interactive baseline dots.
+ * Exact font style and structure from Handoverly_AI reference:
+ * Cormorant Garamond serif headline, Inter body typography,
+ * pure black background, and fully white text.
  */
 function RobedHand() {
   const sectionRef = useRef(null);
@@ -128,7 +124,6 @@ function RobedHand() {
 
               {/* Content Body */}
               <div className="reasons-editorial__content">
-                <span className="reasons-editorial__tag">{reason.tag}</span>
                 <h3 className="reasons-editorial__item-title">{reason.title}</h3>
                 <p className="reasons-editorial__item-desc">{reason.desc}</p>
               </div>

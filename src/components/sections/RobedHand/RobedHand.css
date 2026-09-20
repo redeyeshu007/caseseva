@@ -1,10 +1,14 @@
 /* ==========================================================================
    Act IX — The Robed Hand / Reasons Section (Dark Editorial Layout)
-   Faithfully inspired by Handoverly_AI reasons-editorial:
-   Deep black background, white typography, brass watermark numerals,
-   precision baseline tracking rule with glowing brass dot on hover.
-   2 items on Left, 2 items on Right (2x2 grid) covering full viewport.
+   Faithfully matching Handoverly_AI reasons-editorial:
+   - Fonts: 'Cormorant Garamond' for headline, 'Inter' for all copy & numbers
+   - Fully white typography on pure deep black background
+   - Giant watermark numerals ('Inter' 800 weight)
+   - Interactive horizontal track with glowing white dot
+   - 2 on Left, 2 on Right covering full viewport
    ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 .reasons-editorial {
   position: relative;
@@ -32,23 +36,24 @@
 
 .reasons-editorial__header {
   text-align: center;
-  max-width: 1000px;
+  max-width: 1100px;
   margin: 0 auto clamp(60px, 9vh, 95px);
 }
 
 .reasons-editorial__eyebrow {
-  font-family: var(--font-body);
+  font-family: 'Inter', sans-serif;
   font-size: 13px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.18em;
-  color: var(--color-brass, #c9a227);
+  letter-spacing: 0.16em;
+  color: #ffffff;
   margin-bottom: 20px;
+  opacity: 0.9;
 }
 
 .reasons-editorial__title {
-  font-family: var(--font-display, "Playfair Display", serif);
-  font-size: clamp(38px, 4.8vw, 64px);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(40px, 5.2vw, 68px);
   font-weight: 600;
   color: #ffffff;
   line-height: 1.15;
@@ -57,14 +62,14 @@
 }
 
 .reasons-editorial__title-highlight {
-  color: var(--color-brass, #c9a227);
+  color: #ffffff;
   font-style: italic;
 }
 
 .reasons-editorial__subtitle {
-  font-family: var(--font-body);
+  font-family: 'Inter', sans-serif;
   font-size: clamp(16px, 1.25vw, 19px);
-  color: rgba(255, 255, 255, 0.65);
+  color: rgba(255, 255, 255, 0.88);
   line-height: 1.6;
   margin: 0 auto;
   max-width: 580px;
@@ -100,7 +105,7 @@
   left: 0;
   right: 0;
   height: 1px;
-  background-color: rgba(255, 255, 255, 0.15);
+  background-color: rgba(255, 255, 255, 0.18);
   transform: scaleX(1);
   transform-origin: left;
   transition: background-color 0.4s ease;
@@ -108,7 +113,7 @@
 }
 
 .reasons-editorial__item:hover .reasons-editorial__line {
-  background-color: var(--color-brass, #c9a227);
+  background-color: #ffffff;
 }
 
 /* Interactive Glowing Dot on the Line */
@@ -118,7 +123,7 @@
   left: 0;
   width: 7px;
   height: 7px;
-  background-color: var(--color-brass, #c9a227);
+  background-color: #ffffff;
   border-radius: 50%;
   opacity: 0;
   transform: scale(0.5);
@@ -129,15 +134,15 @@
 .reasons-editorial__item:hover .reasons-editorial__dot {
   opacity: 1;
   transform: scale(1.6);
-  box-shadow: 0 0 14px rgba(201, 162, 39, 0.7);
+  box-shadow: 0 0 14px rgba(255, 255, 255, 0.85);
 }
 
-/* Watermark Numerals (100px) */
+/* Watermark Numerals (100px Inter 800) */
 .reasons-editorial__number {
   position: absolute;
   top: -55px;
   left: -4px;
-  font-family: var(--font-display, "Playfair Display", serif);
+  font-family: 'Inter', sans-serif;
   font-size: clamp(80px, 7.5vw, 105px);
   font-weight: 800;
   color: rgba(255, 255, 255, 0.08);
@@ -150,7 +155,7 @@
 }
 
 .reasons-editorial__item:hover .reasons-editorial__number {
-  color: rgba(201, 162, 39, 0.28);
+  color: rgba(255, 255, 255, 0.25);
   transform: scale(1.08) translateY(-4px);
 }
 
@@ -165,18 +170,8 @@
   transform: translateY(-2px);
 }
 
-.reasons-editorial__tag {
-  font-family: var(--font-body);
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-  color: var(--color-brass, #c9a227);
-  margin-bottom: 8px;
-}
-
 .reasons-editorial__item-title {
-  font-family: var(--font-body, "Inter", sans-serif);
+  font-family: 'Inter', sans-serif;
   font-size: clamp(20px, 1.65vw, 25px);
   font-weight: 700;
   color: #ffffff;
@@ -187,20 +182,20 @@
 }
 
 .reasons-editorial__item:hover .reasons-editorial__item-title {
-  color: var(--color-brass, #c9a227);
+  color: #ffffff;
 }
 
 .reasons-editorial__item-desc {
-  font-family: var(--font-body, "Inter", sans-serif);
+  font-family: 'Inter', sans-serif;
   font-size: clamp(15px, 1.05vw, 16.5px);
   line-height: 1.7;
-  color: rgba(255, 255, 255, 0.65);
+  color: rgba(255, 255, 255, 0.85);
   margin: 0;
   transition: color 0.3s ease;
 }
 
 .reasons-editorial__item:hover .reasons-editorial__item-desc {
-  color: rgba(255, 255, 255, 0.95);
+  color: #ffffff;
 }
 
 /* --------------------------------------------------------------------------
