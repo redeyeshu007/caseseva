@@ -7,7 +7,6 @@ import CasesGoCold from "./components/sections/CasesGoCold/CasesGoCold";
 
 import Assembly from "./components/sections/Assembly/Assembly";
 import RobedHand from "./components/sections/RobedHand/RobedHand";
-import Seal from "./components/sections/Seal/Seal";
 import Boundaries from "./components/sections/Boundaries/Boundaries";
 import FinalCTA from "./components/sections/FinalCTA/FinalCTA";
 import Footer from "./components/footer/Footer";
@@ -41,7 +40,6 @@ function App() {
           <CasesGoCold />
           <Assembly />
           <RobedHand />
-          <Seal />
           <Boundaries />
           <FinalCTA />
         </main>
