@@ -33,7 +33,13 @@ function Boundaries() {
   return (
     <section id="standing" className="boundaries section on-dark" data-bg="#000000">
       <div className="boundaries__header">
-        <p className="eyebrow boundaries__eyebrow">Standing</p>
+        <p className="eyebrow boundaries__eyebrow">Ethical Standing</p>
+        <h2 className="boundaries__headline">
+          Defined by what we <span className="boundaries__headline-accent">will not do.</span>
+        </h2>
+        <p className="boundaries__subhead">
+          Four non-negotiable boundaries that protect every case before it is filed.
+        </p>
       </div>
 
       <div className="boundaries__menu-container">
