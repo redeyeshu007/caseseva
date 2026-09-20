@@ -7,22 +7,22 @@ const REASONS = [
   {
     id: "01",
     title: "Strike a Ground",
-    desc: "Eliminate unfounded claims and unverified arguments that the record cannot substantiate. The advocate prunes weak assertions before filing to ensure the court confronts only unassailable legal grounds.",
+    desc: "Remove a legal allegation the evidence does not justify.",
   },
   {
     id: "02",
     title: "Correct the Record",
-    desc: "Rectify critical chronological discrepancies, disputed transaction values, and jurisdictional details. The advocate cross-examines documentary trails to establish an airtight, verifiable sequence of events.",
+    desc: "Fix a fact, a date, or an amount.",
   },
   {
     id: "03",
     title: "Demand a Document",
-    desc: "Identify evidentiary gaps and instruct the client to furnish primary proofs, invoices, or statutory notices. No submission moves forward until every material allegation is backed by admissible proof.",
+    desc: "Send the case back to the client for proof.",
   },
   {
     id: "04",
     title: "Re-Open the Analysis",
-    desc: "Direct targeted computational re-runs across modified facts, precedent corpuses, and statutory thresholds. The AI updates dependent reasoning immediately while preserving absolute advocate oversight.",
+    desc: "Trigger a focused re-run of only affected analysis.",
   },
 ];
 
