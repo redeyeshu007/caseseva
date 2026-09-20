@@ -59,7 +59,7 @@ function Boundaries() {
   }, [reducedMotion]);
 
   return (
-    <section id="boundaries" className="boundaries section" data-bg="#ffffff">
+    <section id="standing" className="boundaries section" data-bg="#ffffff">
       <div className="container">
         <p className="eyebrow on-light">Standing</p>
         <ul ref={listRef} className="boundaries__list">

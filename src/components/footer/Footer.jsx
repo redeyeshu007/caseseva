@@ -3,7 +3,7 @@ import "./Footer.css";
 const COLUMNS = [
   {
     title: "The Building",
-    links: ["Threshold", "The Assembly", "Crossfire", "The Ledger", "The Compass"],
+    links: ["Threshold", "The Assembly", "The Compass"],
   },
   {
     title: "For Counsel",

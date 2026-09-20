@@ -97,10 +97,9 @@ export default function Navbar() {
                 items={[
                   { label: 'Threshold', link: '#threshold' },
                   { label: 'Assembly', link: '#assembly' },
-                  { label: 'Crossfire', link: '#crossfire' },
-                  { label: 'Ledger', link: '#ledger' },
                   { label: 'Robes', link: '#robes' },
-                  { label: 'Standing', link: '#standing' }
+                  { label: 'Standing', link: '#standing' },
+                  { label: 'Enter Chambers', link: '#final-cta' }
                 ]}
                 logoUrl="/logo.png"
                 displaySocials={false}
