@@ -1,81 +1,229 @@
-.footer {
-  color: var(--color-black);
-  padding: clamp(4rem, 8vw, 6rem) 0 2rem;
-}
+/* ==========================================================================
+   CASESEVA Cinematic Minimal Footer
+   Pure Black & White with subtle green technological interaction
+   ========================================================================== */
 
-.footer__grid {
-  display: grid;
-  grid-template-columns: 1.4fr repeat(5, 1fr);
-  gap: 2rem;
-}
-
-.footer__wordmark {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 1.4rem;
-  letter-spacing: 0.1em;
-  display: block;
-  margin-bottom: 1rem;
-}
-
-.footer__note {
-  font-size: 0.78rem;
-  color: rgba(0, 0, 0, 0.55);
-  line-height: 1.6;
-  max-width: 26ch;
-}
-
-.footer__column-title {
-  display: block;
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  color: var(--color-brass);
-  margin-bottom: 1.1rem;
-}
-
-.footer__column ul {
-  list-style: none;
+footer.footer {
+  position: relative;
+  width: 100%;
+  background-color: #000000 !important;
+  color: #ffffff;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: 0.65rem;
+  user-select: none;
 }
 
-.footer__column a {
-  font-size: 0.82rem;
-  color: rgba(0, 0, 0, 0.65);
-  transition: color 0.2s ease;
+/* --------------------------------------------------------------------------
+   Giant Typographic CASESEVA Wordmark
+   -------------------------------------------------------------------------- */
+
+.footer__wordmark-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: clamp(70px, 12vh, 140px) var(--container-pad-x, clamp(1.5rem, 6vw, 6rem)) clamp(50px, 9vh, 100px);
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
-.footer__column a:hover {
-  color: var(--color-black);
+.footer__giant-wordmark {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-hero, var(--font-body));
+  font-size: clamp(3rem, 14.5vw, 17.5rem);
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 0.88;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  text-align: center;
+  white-space: nowrap;
+  text-shadow: 0 0 40px rgba(255, 255, 255, 0.12), 0 0 90px rgba(255, 255, 255, 0.05);
+  will-change: transform, opacity;
+}
+
+/* --------------------------------------------------------------------------
+   Divider & Bottom Row
+   -------------------------------------------------------------------------- */
+
+.footer__bottom-wrap {
+  width: 100%;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  box-sizing: border-box;
 }
 
 .footer__bottom {
-  margin-top: 4rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  width: 100%;
+  max-width: var(--max-width, 1440px);
+  margin: 0 auto;
+  padding: clamp(24px, 3.5vh, 36px) var(--container-pad-x, clamp(1.5rem, 6vw, 6rem));
   display: flex;
   justify-content: space-between;
-  font-size: 0.75rem;
-  color: rgba(0, 0, 0, 0.5);
+  align-items: center;
+  box-sizing: border-box;
+  font-family: var(--font-body);
+  font-size: clamp(0.78rem, 0.9vw, 0.88rem);
+  line-height: 1.5;
+  color: #ffffff;
 }
 
-@media (max-width: 960px) {
-  .footer__grid {
-    grid-template-columns: 1fr 1fr;
+.footer__copyright {
+  margin: 0;
+  padding: 0;
+  color: #ffffff;
+  opacity: 0.82;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+.footer__credit {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: #ffffff;
+  font-weight: 400;
+}
+
+.footer__credit-prefix {
+  color: #ffffff;
+  opacity: 0.82;
+}
+
+/* --------------------------------------------------------------------------
+   Green Sync Innovators Interactive Element
+   Subtle technological green signal
+   -------------------------------------------------------------------------- */
+
+.footer__dev-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  color: #ffffff;
+  padding-bottom: 2px;
+  cursor: pointer;
+}
+
+.footer__dev-name {
+  color: #ffffff;
+  font-weight: 500;
+  transition: color 0.4s ease, text-shadow 0.4s ease;
+}
+
+.footer__dev-track {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.footer__dev-line {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1.5px;
+  background-color: #22c55e;
+  box-shadow: 0 0 8px rgba(34, 197, 94, 0.5), 0 0 16px rgba(34, 197, 94, 0.25);
+  transform: scaleX(0);
+  transform-origin: left;
+  opacity: 0;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
+}
+
+.footer__dev-spark {
+  position: absolute;
+  top: -2px;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #22c55e;
+  box-shadow: 0 0 6px #22c55e, 0 0 14px 2px rgba(34, 197, 94, 0.7);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Active state on hover and keyboard focus */
+.footer__dev-link:hover .footer__dev-name,
+.footer__dev-link:focus-visible .footer__dev-name {
+  color: #ebfaef;
+  text-shadow: 0 0 10px rgba(34, 197, 94, 0.3);
+}
+
+.footer__dev-link:hover .footer__dev-line,
+.footer__dev-link:focus-visible .footer__dev-line {
+  transform: scaleX(1);
+  opacity: 1;
+}
+
+.footer__dev-link:hover .footer__dev-spark,
+.footer__dev-link:focus-visible .footer__dev-spark {
+  animation: greenSignalTravel 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.footer__dev-link:focus-visible {
+  outline: 1.5px solid #22c55e;
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+@keyframes greenSignalTravel {
+  0% {
+    left: 0%;
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  15% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.35);
+    box-shadow: 0 0 8px #22c55e, 0 0 18px 3px rgba(34, 197, 94, 0.85);
+  }
+  85% {
+    opacity: 0.85;
+    transform: scale(0.9);
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
+    transform: scale(0.4);
   }
 }
 
-@media (max-width: 560px) {
-  .footer__grid {
-    grid-template-columns: 1fr;
+/* --------------------------------------------------------------------------
+   Responsive Layout (Mobile)
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 768px) {
+  .footer__wordmark-wrap {
+    padding: clamp(50px, 9vh, 80px) var(--container-pad-x, 1.5rem) clamp(35px, 6vh, 60px);
+  }
+
+  .footer__giant-wordmark {
+    font-size: clamp(2.4rem, 13.8vw, 4.2rem);
+    letter-spacing: -0.03em;
   }
 
   .footer__bottom {
     flex-direction: column;
-    gap: 0.5rem;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 24px var(--container-pad-x, 1.5rem);
+  }
+
+  .footer__credit {
+    flex-wrap: wrap;
   }
 }
