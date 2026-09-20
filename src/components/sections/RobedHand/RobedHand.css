@@ -19,7 +19,7 @@ section.reasons-editorial {
   align-items: center;
   justify-content: center;
   background-color: #000000;
-  padding: clamp(70px, 9vh, 110px) 0 clamp(40px, 5vh, 60px);
+  padding: clamp(70px, 9vh, 110px) 0 clamp(55px, 6.5vh, 80px);
   box-sizing: border-box;
   overflow: hidden;
 }
