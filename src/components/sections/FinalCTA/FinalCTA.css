@@ -1,42 +1,86 @@
 .final-cta {
-  min-height: 90vh;
+  min-height: 75vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: var(--section-pad-y) 0;
+  padding: clamp(80px, 12vh, 140px) 0;
+  background-color: #ffffff;
 }
 
 .final-cta__content {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 3rem;
+  gap: clamp(2.2rem, 4vh, 3.2rem);
+  width: 100%;
 }
 
 .final-cta__headline {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: clamp(2.2rem, 5vw, 4rem);
+  font-family: var(--font-hero, var(--font-body));
+  font-weight: 700;
+  font-size: clamp(1.4rem, 2.85vw, 2.75rem);
   line-height: 1.25;
-  color: var(--color-black);
-  max-width: 20ch;
+  letter-spacing: -0.03em;
+  color: var(--color-black, #000000);
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  width: 100%;
+  max-width: 100%;
 }
 
-.final-cta__button {
-  font-size: 0.95rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  color: var(--color-white);
-  background: var(--color-black);
-  padding: 1.1rem 2.6rem;
-  border-radius: 2px;
-  transition: background-color 0.25s ease;
+@media (min-width: 769px) {
+  .final-cta__headline {
+    white-space: nowrap;
+  }
 }
 
-.final-cta__button:hover {
-  background: var(--color-brass);
+@media (max-width: 768px) {
+  .final-cta__headline {
+    font-size: clamp(1.4rem, 5.5vw, 2.1rem);
+    white-space: normal;
+    text-wrap: balance;
+  }
+}
+
+/* Navbar-matched pill CTA button */
+.final-cta__navbar-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 195px;
+  gap: 0.55rem;
+  background-color: #0A0F0D;
+  color: #ffffff !important;
+  padding: 0.72rem 0;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 14.5px;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  flex-shrink: 0;
+  z-index: 10;
+  font-family: 'DM Sans', var(--font-body), sans-serif;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+}
+
+.final-cta__navbar-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.16);
+  background-color: #000000;
+}
+
+.final-cta__navbar-btn span {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.final-cta__navbar-btn .javix-navbar-cta-icon {
+  width: 1.05rem;
+  height: 1.05rem;
+  transition: transform 0.2s ease;
 }
 
 .final-cta__visual {
