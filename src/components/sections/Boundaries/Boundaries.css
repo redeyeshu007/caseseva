@@ -1,3 +1,14 @@
+/* ==========================================================================
+   Act XI — Standing (Boundaries Section)
+   Typography & styling matches RobedHand (reasons-editorial):
+   - Cormorant Garamond for headline with italic highlight
+   - Inter for uppercase eyebrow and subtitle
+   - Fully white typography on pure black background
+   - Integrated FlowingMenu with black & white legal imagery
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
 .boundaries {
   position: relative;
   width: 100%;
@@ -6,58 +17,95 @@
   flex-direction: column;
   justify-content: center;
   background-color: #000000;
-  padding: clamp(3.5rem, 7vh, 6rem) 0 0;
+  padding: clamp(60px, 9vh, 100px) 0 clamp(40px, 6vh, 80px);
   box-sizing: border-box;
   overflow: hidden;
 }
 
-.boundaries__header {
+.boundaries .container {
   width: 100%;
-  max-width: 900px;
-  margin: 0 auto clamp(2rem, 4vh, 3.5rem);
+  max-width: var(--max-width, 1200px);
+  margin: 0 auto;
+  padding: 0 var(--container-pad-x, clamp(1.5rem, 6vw, 6rem));
+}
+
+/* --------------------------------------------------------------------------
+   Editorial Header (Matching Robes)
+   -------------------------------------------------------------------------- */
+
+.boundaries__header {
   text-align: center;
-  padding: 0 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto clamp(40px, 6vh, 65px);
 }
 
 .boundaries__eyebrow {
-  font-family: var(--font-body);
-  font-size: 0.75rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
   font-weight: 700;
-  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--color-brass, #c9a227);
-  margin: 0 0 0.75rem;
-  display: inline-block;
-}
-
-.boundaries__headline {
-  font-family: var(--font-display, "Playfair Display", serif);
-  font-size: clamp(2.2rem, 4vw, 3.6rem);
-  font-weight: 600;
-  line-height: 1.18;
-  letter-spacing: -0.02em;
+  letter-spacing: 0.16em;
   color: #ffffff;
-  margin: 0 0 0.85rem;
+  margin-bottom: 20px;
+  opacity: 0.9;
 }
 
-.boundaries__headline-accent {
-  color: var(--color-brass, #c9a227);
+.boundaries__title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(40px, 5.2vw, 68px);
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin: 0 0 20px;
+}
+
+.boundaries__title-highlight {
+  color: #ffffff;
   font-style: italic;
 }
 
-.boundaries__subhead {
-  font-family: var(--font-body);
-  font-size: clamp(0.95rem, 1.2vw, 1.15rem);
-  line-height: 1.55;
-  color: rgba(255, 255, 255, 0.75);
+.boundaries__subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(16px, 1.25vw, 19px);
+  color: rgba(255, 255, 255, 0.88);
+  line-height: 1.6;
   margin: 0 auto;
-  max-width: 620px;
+  max-width: 580px;
 }
+
+/* --------------------------------------------------------------------------
+   FlowingMenu Container
+   -------------------------------------------------------------------------- */
 
 .boundaries__menu-container {
   position: relative;
   width: 100%;
-  height: clamp(480px, 65vh, 640px);
+  height: clamp(460px, 62vh, 600px);
   border-top: 1px solid rgba(255, 255, 255, 0.15);
   border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* --------------------------------------------------------------------------
+   Responsive Media Queries
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 860px) {
+  .boundaries {
+    min-height: auto;
+    padding: 60px 0 40px;
+  }
+
+  .boundaries__header {
+    margin-bottom: 45px;
+    text-align: left;
+  }
+
+  .boundaries__subtitle {
+    margin: 0;
+  }
+
+  .boundaries__menu-container {
+    height: clamp(420px, 55vh, 520px);
+  }
 }
