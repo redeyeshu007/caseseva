@@ -2,14 +2,16 @@ import ScrollVelocity from "../../ui/ScrollVelocity/ScrollVelocity";
 import "./Boundaries.css";
 
 const BOUNDARY_TEXTS = [
-  "WE WILL NOT APPEAR FOR YOU — WE WILL NOT PROMISE A RESULT —",
-  "WE WILL NOT INVENT LAW — WE WILL NOT SKIP THE ADVOCATE —",
+  "WE WILL NOT APPEAR FOR YOU —",
+  "WE WILL NOT PROMISE A RESULT —",
+  "WE WILL NOT INVENT LAW —",
+  "WE WILL NOT SKIP THE ADVOCATE —",
 ];
 
 /**
  * Act XI — Standing / What We Will Not Do.
  * Powered by dynamic Motion velocity scroll ticker:
- * Centered editorial header, framed by crisp black boundary lines above and below.
+ * 4 separate alternating velocity lines, framed by crisp black boundary lines above and below.
  */
 function Boundaries() {
   return (
@@ -31,9 +33,9 @@ function Boundaries() {
 
         <ScrollVelocity
           texts={BOUNDARY_TEXTS}
-          velocity={75}
+          velocity={70}
           className="boundaries__scroll-text"
-          numCopies={4}
+          numCopies={6}
           damping={50}
           stiffness={400}
         />
