@@ -6,7 +6,6 @@ import SceneBackdrop from "./components/ui/SceneBackdrop";
 import CasesGoCold from "./components/sections/CasesGoCold/CasesGoCold";
 
 import Assembly from "./components/sections/Assembly/Assembly";
-import Compass from "./components/sections/Compass/Compass";
 import RobedHand from "./components/sections/RobedHand/RobedHand";
 import Seal from "./components/sections/Seal/Seal";
 import Boundaries from "./components/sections/Boundaries/Boundaries";
@@ -41,7 +40,6 @@ function App() {
           <Hero />
           <CasesGoCold />
           <Assembly />
-          <Compass />
           <RobedHand />
           <Seal />
           <Boundaries />
