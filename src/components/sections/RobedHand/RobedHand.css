@@ -13,12 +13,13 @@
 .reasons-editorial {
   position: relative;
   width: 100%;
-  min-height: 100vh;
+  min-height: auto;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   background-color: #000000;
-  padding: clamp(50px, 7.5vh, 90px) 0;
+  padding: clamp(70px, 9vh, 110px) 0 clamp(40px, 5vh, 60px);
   box-sizing: border-box;
   overflow: hidden;
 }
@@ -37,7 +38,7 @@
 .reasons-editorial__header {
   text-align: center;
   max-width: 1100px;
-  margin: 0 auto clamp(35px, 5vh, 60px);
+  margin: 0 auto clamp(60px, 9vh, 95px);
 }
 
 .reasons-editorial__eyebrow {
@@ -82,7 +83,7 @@
 .reasons-editorial__grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: clamp(50px, 7vh, 85px) clamp(40px, 5.5vw, 84px);
+  gap: clamp(70px, 9vh, 105px) clamp(40px, 5.5vw, 84px);
   width: 100%;
 }
 
