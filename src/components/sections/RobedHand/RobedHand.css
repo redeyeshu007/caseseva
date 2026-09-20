@@ -11,7 +11,7 @@
   align-items: center;
   justify-content: center;
   background-color: var(--color-white);
-  padding: clamp(3rem, 6vh, 6rem) 0;
+  padding: clamp(2rem, 4vh, 4rem) 0;
   overflow: hidden;
   box-sizing: border-box;
 }
@@ -34,7 +34,7 @@
 
 .robes-wheel {
   position: relative;
-  width: min(880px, 80vw);
+  width: min(640px, 72vw, 72vh);
   aspect-ratio: 1;
   display: flex;
   align-items: center;
@@ -187,7 +187,7 @@
 .robes-center {
   position: relative;
   z-index: 10;
-  width: clamp(280px, 34vw, 360px);
+  width: 42.6%;
   aspect-ratio: 1;
   border-radius: 50%;
   background: radial-gradient(circle at center, #ffffff 45%, #fbf9f4 85%, #f4f1e8 100%);
@@ -196,8 +196,8 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  box-shadow: 0 0 50px rgba(0, 0, 0, 0.025);
-  padding: 2.2rem;
+  box-shadow: 0 0 35px rgba(0, 0, 0, 0.025);
+  padding: clamp(1rem, 2vw, 1.6rem);
   box-sizing: border-box;
 }
 
@@ -206,23 +206,23 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  max-width: 270px;
+  max-width: 220px;
 }
 
 .robes-center__eyebrow {
   font-family: var(--font-body);
-  font-size: 0.68rem;
+  font-size: clamp(0.5rem, 0.62vw, 0.6rem);
   font-weight: 700;
-  letter-spacing: 0.24em;
+  letter-spacing: 0.22em;
   color: var(--color-brass);
   text-transform: uppercase;
-  margin-bottom: 0.85rem;
+  margin-bottom: 0.5rem;
 }
 
 .robes-center__headline {
   font-family: var(--font-display);
-  font-size: clamp(1.45rem, 2vw, 1.9rem);
-  line-height: 1.28;
+  font-size: clamp(1.05rem, 1.4vw, 1.35rem);
+  line-height: 1.24;
   margin: 0;
   display: flex;
   flex-direction: column;
@@ -238,31 +238,31 @@
   color: var(--color-brass);
   font-weight: 600;
   font-style: italic;
-  margin-top: 0.15rem;
+  margin-top: 0.1rem;
 }
 
 .robes-center__divider {
-  width: 38px;
+  width: 28px;
   height: 1px;
   background: linear-gradient(90deg, transparent, var(--color-brass), transparent);
-  margin: 0.95rem 0 0.85rem;
+  margin: 0.6rem 0 0.5rem;
 }
 
 .robes-center__sub {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.2rem;
+  gap: 0.15rem;
 }
 
 .robes-center__sub-line {
   font-family: var(--font-ui, var(--font-body));
-  font-size: 0.6rem;
+  font-size: clamp(0.48rem, 0.54vw, 0.54rem);
   font-weight: 700;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.15em;
   color: rgba(0, 0, 0, 0.48);
   text-transform: uppercase;
-  line-height: 1.4;
+  line-height: 1.35;
 }
 
 /* --------------------------------------------------------------------------
@@ -280,33 +280,33 @@
   position: absolute;
   pointer-events: auto;
   cursor: pointer;
-  width: clamp(180px, 20vw, 225px);
+  width: clamp(145px, 17vw, 185px);
   transition: opacity 0.4s var(--ease-editorial), filter 0.4s ease;
   user-select: none;
 }
 
 /* Quadrant Placements */
 .robes-action--top-left {
-  top: 8%;
-  left: 1%;
+  top: 5%;
+  left: 0%;
   text-align: left;
 }
 
 .robes-action--top-right {
-  top: 8%;
-  right: 1%;
+  top: 5%;
+  right: 0%;
   text-align: right;
 }
 
 .robes-action--bottom-left {
-  bottom: 8%;
-  left: 1%;
+  bottom: 5%;
+  left: 0%;
   text-align: left;
 }
 
 .robes-action--bottom-right {
-  bottom: 8%;
-  right: 1%;
+  bottom: 5%;
+  right: 0%;
   text-align: right;
 }
 
@@ -314,8 +314,8 @@
 .robes-action__header {
   display: flex;
   align-items: center;
-  gap: 0.45rem;
-  margin-bottom: 0.35rem;
+  gap: 0.4rem;
+  margin-bottom: 0.25rem;
 }
 
 .robes-action--top-right .robes-action__header,
@@ -325,7 +325,7 @@
 
 .robes-action__num {
   font-family: var(--font-body);
-  font-size: 0.76rem;
+  font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.16em;
   color: var(--color-brass);
@@ -340,7 +340,7 @@
 
 .robes-action__ring-label {
   font-family: var(--font-body);
-  font-size: 0.62rem;
+  font-size: 0.58rem;
   font-weight: 700;
   letter-spacing: 0.2em;
   color: rgba(0, 0, 0, 0.35);
@@ -349,19 +349,19 @@
 
 .robes-action__title {
   font-family: var(--font-display);
-  font-size: clamp(0.95rem, 1.25vw, 1.15rem);
+  font-size: clamp(0.85rem, 1.05vw, 0.98rem);
   font-weight: 700;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   line-height: 1.25;
   color: var(--color-black);
-  margin: 0 0 0.45rem;
+  margin: 0 0 0.35rem;
   transition: color 0.35s ease;
 }
 
 .robes-action__desc {
   font-family: var(--font-body);
-  font-size: clamp(0.78rem, 0.9vw, 0.84rem);
-  line-height: 1.48;
+  font-size: clamp(0.7rem, 0.78vw, 0.76rem);
+  line-height: 1.42;
   color: rgba(0, 0, 0, 0.62);
   margin: 0;
   transition: color 0.35s ease;
@@ -421,18 +421,18 @@
   }
 
   .robes-mobile-center__ring {
-    width: min(320px, 86vw);
+    width: min(260px, 76vw);
     aspect-ratio: 1;
     border-radius: 50%;
     background: radial-gradient(circle at center, #ffffff 40%, #fbf9f4 85%, #f4f1e8 100%);
     border: 1px solid rgba(201, 162, 39, 0.35);
-    box-shadow: 0 0 35px rgba(0, 0, 0, 0.03);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.03);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 1.8rem;
+    padding: 1.35rem;
     box-sizing: border-box;
   }
 
