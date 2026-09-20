@@ -26,21 +26,21 @@ footer.footer {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: clamp(60px, 10vh, 120px) var(--container-pad-x, clamp(1.5rem, 6vw, 6rem)) clamp(40px, 7vh, 80px);
+  padding: clamp(60px, 9vh, 120px) var(--container-pad-x, clamp(1rem, 3vw, 3rem)) clamp(40px, 6vh, 80px);
   box-sizing: border-box;
   overflow: hidden;
 }
 
 .footer__giant-logo {
-  width: 92%;
-  max-width: clamp(340px, 86vw, 1200px);
+  width: 96%;
+  max-width: clamp(340px, 94vw, 1550px);
   height: auto;
-  max-height: clamp(90px, 18vh, 220px);
+  max-height: clamp(140px, 30vh, 360px);
   object-fit: contain;
   display: block;
   margin: 0 auto;
   will-change: transform, opacity;
-  filter: drop-shadow(0 2px 12px rgba(0, 0, 0, 0.04));
+  filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.05));
 }
 
 /* --------------------------------------------------------------------------
@@ -204,12 +204,13 @@ footer.footer {
 
 @media (max-width: 768px) {
   .footer__logo-wrap {
-    padding: clamp(45px, 8vh, 70px) var(--container-pad-x, 1.5rem) clamp(30px, 5vh, 50px);
+    padding: clamp(40px, 7vh, 65px) var(--container-pad-x, 1rem) clamp(25px, 4vh, 45px);
   }
 
   .footer__giant-logo {
-    width: 96%;
-    max-width: 90vw;
+    width: 98%;
+    max-width: 95vw;
+    max-height: clamp(90px, 22vh, 180px);
   }
 
   .footer__bottom {
