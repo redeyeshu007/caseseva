@@ -1,15 +1,28 @@
 .scroll-velocity-wrapper {
   display: flex;
   flex-direction: column;
-  gap: clamp(0.75rem, 1.5vw, 1.35rem);
   overflow: hidden;
   width: 100%;
+}
+
+.scroll-velocity-row {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.scroll-velocity-divider {
+  width: 100%;
+  height: 2px;
+  background-color: #000000;
+  flex-shrink: 0;
 }
 
 .parallax {
   position: relative;
   overflow: hidden;
   width: 100%;
+  padding: clamp(12px, 2vh, 24px) 0;
 }
 
 .scroller {

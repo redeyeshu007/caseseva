@@ -124,23 +124,26 @@ export const ScrollVelocity = ({
   return (
     <div className="scroll-velocity-wrapper">
       {texts.map((text, index) => (
-        <VelocityText
-          key={index}
-          className={className}
-          baseVelocity={index % 2 !== 0 ? -velocity : velocity}
-          scrollContainerRef={scrollContainerRef}
-          damping={damping}
-          stiffness={stiffness}
-          numCopies={numCopies}
-          velocityMapping={velocityMapping}
-          parallaxClassName={parallaxClassName}
-          scrollerClassName={scrollerClassName}
-          parallaxStyle={parallaxStyle}
-          scrollerStyle={scrollerStyle}
-        >
-          {text}
-        </VelocityText>
+        <div key={index} className="scroll-velocity-row">
+          <div className="scroll-velocity-divider" aria-hidden="true" />
+          <VelocityText
+            className={className}
+            baseVelocity={index % 2 !== 0 ? -velocity : velocity}
+            scrollContainerRef={scrollContainerRef}
+            damping={damping}
+            stiffness={stiffness}
+            numCopies={numCopies}
+            velocityMapping={velocityMapping}
+            parallaxClassName={parallaxClassName}
+            scrollerClassName={scrollerClassName}
+            parallaxStyle={parallaxStyle}
+            scrollerStyle={scrollerStyle}
+          >
+            {text}
+          </VelocityText>
+        </div>
       ))}
+      <div className="scroll-velocity-divider" aria-hidden="true" />
     </div>
   );
 };

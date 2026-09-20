@@ -27,10 +27,8 @@ function Boundaries() {
         </header>
       </div>
 
-      {/* Velocity Ticker Framed by Black Lines Above and Below */}
+      {/* Velocity Ticker with Line for Each Statement */}
       <div className="boundaries__track-wrapper">
-        <div className="boundaries__line boundaries__line--top" aria-hidden="true" />
-
         <ScrollVelocity
           texts={BOUNDARY_TEXTS}
           velocity={70}
@@ -39,8 +37,6 @@ function Boundaries() {
           damping={50}
           stiffness={400}
         />
-
-        <div className="boundaries__line boundaries__line--bottom" aria-hidden="true" />
       </div>
     </section>
   );
