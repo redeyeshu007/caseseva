@@ -31,7 +31,7 @@
 .compass__readout dd {
   margin: 0.3rem 0 0;
   font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(0, 0, 0, 0.75);
 }
 
 .compass__instrument {
@@ -55,7 +55,7 @@
 
 .compass__ring-label {
   transform: translateY(-0.9rem);
-  background: var(--color-black);
+  background: var(--color-white);
   padding: 0 0.6rem;
   font-size: 0.65rem;
   font-weight: 700;

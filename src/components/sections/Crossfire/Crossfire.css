@@ -11,7 +11,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
   padding-top: 2.5rem;
 }
 
@@ -50,7 +50,7 @@
 .crossfire__statement {
   font-size: 0.98rem;
   line-height: 1.55;
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(0, 0, 0, 0.8);
   margin: 0;
 }
 
@@ -61,7 +61,7 @@
 }
 
 .crossfire__statement--open {
-  color: #e7b3b3;
+  color: var(--color-oxblood);
   border-left: 2px solid var(--color-oxblood);
   padding-left: 0.8rem;
 }
@@ -69,8 +69,8 @@
 .crossfire__evaluator {
   margin-top: 3rem;
   font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.55);
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(0, 0, 0, 0.55);
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
   padding-top: 1.5rem;
 }
 

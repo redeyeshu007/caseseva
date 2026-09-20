@@ -81,7 +81,7 @@ function Hero() {
             </span>
           </p>
           <div className="hero__actions" data-hero-rest>
-            <a href="#telling" className="hero__cta-primary">
+            <a href="#cases-go-cold" className="hero__cta-primary">
               {/* Both labels share one grid cell, so the pill keeps the width of the longer one */}
               <span className="hero__cta-label">
                 <span className="hero__cta-text hero__cta-text--rest">Know Your Case</span>

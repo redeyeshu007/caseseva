@@ -11,7 +11,7 @@
   font-weight: 600;
   font-size: clamp(1.6rem, 5vw, 3.2rem);
   line-height: 1.4;
-  color: var(--color-white);
+  color: var(--color-black);
   padding: 0.9rem 0;
   border-bottom: 1px solid rgba(122, 46, 46, 0.4);
   will-change: opacity, filter;

@@ -63,7 +63,7 @@ function LivingRecord() {
     <section
       id="living-record"
       className="living-record section"
-      data-bg="#f3efe6"
+      data-bg="#ffffff"
       ref={sectionRef}
     >
       <div className="container living-record__grid">

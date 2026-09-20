@@ -25,7 +25,7 @@ const COLUMNS = [
 
 function Footer() {
   return (
-    <footer className="footer" data-bg="#000000">
+    <footer className="footer" data-bg="#ffffff">
       <div className="container footer__grid">
         <div className="footer__mark">
           <span className="footer__wordmark">CASESEVA</span>

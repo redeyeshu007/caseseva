@@ -20,11 +20,11 @@ function Compass() {
   useEditorialReveal(headlineRef);
 
   return (
-    <section id="compass" className="compass section" data-bg="#000000">
+    <section id="compass" className="compass section" data-bg="#ffffff">
       <div className="container compass__grid">
         <div className="compass__copy">
-          <p className="eyebrow on-dark">Every case has a proper forum</p>
-          <h2 ref={headlineRef} className="compass__headline on-dark">
+          <p className="eyebrow on-light">Every case has a proper forum</p>
+          <h2 ref={headlineRef} className="compass__headline on-light">
             The right forum, the right territory, the right clock — fixed
             before anything is filed.
           </h2>

@@ -19,7 +19,7 @@ function FinalCTA() {
           <br />
           Right now it has a folder.
         </h2>
-        <a href="#telling" className="final-cta__button">
+        <a href="#cases-go-cold" className="final-cta__button">
           Tell It Once
         </a>
       </div>

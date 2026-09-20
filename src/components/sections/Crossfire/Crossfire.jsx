@@ -63,10 +63,10 @@ function Crossfire() {
   const seamShift = (resolvedCount / Math.max(resolvableTotal, 1)) * 10;
 
   return (
-    <section id="crossfire" className="crossfire section" data-bg="#141a2e" ref={sectionRef}>
+    <section id="crossfire" className="crossfire section" data-bg="#ffffff" ref={sectionRef}>
       <div className="container">
-        <p className="eyebrow on-dark">The case is tested before anyone else sees it</p>
-        <h2 className="crossfire__headline on-dark">
+        <p className="eyebrow on-light">The case is tested before anyone else sees it</p>
+        <h2 className="crossfire__headline on-light">
           Every argument meets its objection before it leaves the building.
         </h2>
 

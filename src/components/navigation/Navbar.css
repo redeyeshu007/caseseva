@@ -20,7 +20,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1.15rem 1.5rem 0.65rem 1.5rem; /* slightly increased top padding */
+  padding: 1.15rem 1.5rem 0.65rem 1.5rem;
+  /* slightly increased top padding */
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
   transition: border-color 0.3s ease-in-out;
 }
@@ -39,18 +40,22 @@
 
 @media (min-width: 1024px) {
   .javix-navbar {
-    padding-left: 2rem; /* lg:px-8 */
+    padding-left: 2rem;
+    /* lg:px-8 */
     padding-right: 2rem;
   }
 }
 
 .javix-navbar--scrolled {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06); /* border-black/[0.06] */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  /* border-black/[0.06] */
 }
 
 .javix-navbar--scrolled::before {
-  background-color: rgba(255, 255, 255, 0.9); /* bg-white/90 */
-  backdrop-filter: blur(12px); /* backdrop-blur-md */
+  background-color: rgba(255, 255, 255, 0.9);
+  /* bg-white/90 */
+  backdrop-filter: blur(12px);
+  /* backdrop-blur-md */
   -webkit-backdrop-filter: blur(12px);
 }
 
@@ -78,7 +83,8 @@
 .javix-navbar-marquee-container {
   display: none;
   flex: 1;
-  margin: 0 2rem; /* mx-8 */
+  margin: 0 2rem;
+  /* mx-8 */
   overflow: hidden;
   position: relative;
   /* Fade out edges using mask */
@@ -107,8 +113,10 @@
 .javix-navbar-marquee-item {
   display: flex;
   align-items: center;
-  gap: 1.5rem; /* space-x-6 */
-  padding: 0 0.75rem; /* px-3 */
+  gap: 1.5rem;
+  /* space-x-6 */
+  padding: 0 0.75rem;
+  /* px-3 */
 }
 
 .javix-navbar-marquee-text {
@@ -124,12 +132,18 @@
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background-color: #D4AF37; /* Shining Gold */
+  background-color: #D4AF37;
+  /* Shining Gold */
 }
 
 @keyframes javix-marquee-scroll {
-  0% { transform: translateX(0%); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 /* CTA */
@@ -137,12 +151,16 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 185px; /* Hardcoded width so the button never changes size */
-  gap: 0.5rem; /* space-x-2 */
+  width: 185px;
+  /* Hardcoded width so the button never changes size */
+  gap: 0.5rem;
+  /* space-x-2 */
   background-color: #0A0F0D;
   color: #ffffff !important;
-  padding: 0.6rem 0; /* Removing horizontal padding since width is fixed */
-  border-radius: 9999px; /* rounded-full */
+  padding: 0.6rem 0;
+  /* Removing horizontal padding since width is fixed */
+  border-radius: 9999px;
+  /* rounded-full */
   font-weight: 700;
   font-size: 14px;
   text-decoration: none;
@@ -210,7 +228,7 @@
 
 /* Very small phones: the menu already carries the CTA */
 @media (max-width: 400px) {
-  .javix-navbar-actions > .javix-navbar-cta {
+  .javix-navbar-actions>.javix-navbar-cta {
     display: none;
   }
 }
@@ -230,7 +248,6 @@
 
 .javix-navbar-settings-btn:hover {
   background-color: rgba(0, 0, 0, 0.05);
-  transform: rotate(45deg);
 }
 
 .javix-navbar-dropdown {
@@ -272,6 +289,7 @@
     opacity: 0;
     transform: translateY(-10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);

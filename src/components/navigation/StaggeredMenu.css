@@ -7,7 +7,8 @@
 }
 
 .staggered-menu-wrapper.fixed-wrapper {
-  position: absolute; /* Changed to absolute to fit within the navbar actions container instead of full screen */
+  position: absolute;
+  /* Changed to absolute to fit within the navbar actions container instead of full screen */
   top: 0;
   right: 0;
   width: auto;
@@ -23,10 +24,11 @@
   justify-content: flex-end;
   background: transparent;
   pointer-events: none;
-  z-index: 60; /* Higher than the panel */
+  z-index: 60;
+  /* Higher than the panel */
 }
 
-.staggered-menu-header > * {
+.staggered-menu-header>* {
   pointer-events: auto;
 }
 
@@ -59,7 +61,7 @@
 /* Hover-capable devices only, so touch screens don't keep a stuck rotated state */
 @media (hover: hover) {
   .sm-toggle:hover {
-    transform: rotate(45deg);
+    /* no rotation on hover */
   }
 }
 
@@ -70,20 +72,24 @@
 }
 
 .staggered-menu-panel {
-  position: fixed; /* Keep panel fixed to cover screen */
+  position: fixed;
+  /* Keep panel fixed to cover screen */
   top: 0;
   right: 0;
-  width: clamp(280px, 28vw, 420px); /* Reduced width */
+  width: clamp(280px, 28vw, 420px);
+  /* Reduced width */
   height: 100vh;
-  background: #F4F2EB; /* Reference image background color */
+  background: #F4F2EB;
+  /* Reference image background color */
   display: flex;
   flex-direction: column;
-  padding: 7.5em 3em 3em 3em; /* Reduced top padding to close the gap above the tagline */
+  padding: 7.5em 3em 3em 3em;
+  /* Reduced top padding to close the gap above the tagline */
   overflow-y: auto;
   z-index: 50;
   pointer-events: auto;
   opacity: 0;
-  box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
 }
 
 [data-position='left'] .staggered-menu-panel {
@@ -96,7 +102,8 @@
   top: 0;
   right: 0;
   bottom: 0;
-  width: clamp(280px, 28vw, 420px); /* Reduced width */
+  width: clamp(280px, 28vw, 420px);
+  /* Reduced width */
   pointer-events: none;
   z-index: 45;
   opacity: 0;
@@ -127,9 +134,11 @@
 .sm-panel-tagline {
   color: #000000;
   font-family: 'DM Sans', sans-serif;
-  font-size: 1.25rem; /* Increased size */
+  font-size: 1.25rem;
+  /* Increased size */
   font-weight: 900;
-  text-transform: none; /* Not full uppercase */
+  text-transform: none;
+  /* Not full uppercase */
   letter-spacing: 0.15em;
   margin-bottom: 1rem;
   white-space: nowrap;
@@ -139,9 +148,12 @@
 
 .sm-panel-logo-container {
   position: absolute;
-  top: 40.4px; /* Exact vertical center of the navbar gear icon (32.4 + 8px padding shift) */
-  left: 3rem; /* Matches the left padding of the menu items */
-  transform: translateY(-50%); /* perfectly centers the logo around the line */
+  top: 40.4px;
+  /* Exact vertical center of the navbar gear icon (32.4 + 8px padding shift) */
+  left: 3rem;
+  /* Matches the left padding of the menu items */
+  transform: translateY(-50%);
+  /* perfectly centers the logo around the line */
   display: flex;
   align-items: center;
 }
@@ -167,7 +179,8 @@
 .sm-panel-item {
   position: relative;
   color: #0A0F0D;
-  font-weight: 400; /* Regular weight like reference */
+  font-weight: 400;
+  /* Regular weight like reference */
   font-size: 2rem;
   cursor: pointer;
   line-height: 1.2;
@@ -178,12 +191,14 @@
   align-items: center;
   text-decoration: none;
   padding: 1.2rem 0;
-  font-family: 'DM Sans', sans-serif; /* Sans serif like reference */
+  font-family: 'DM Sans', sans-serif;
+  /* Sans serif like reference */
   width: 100%;
 }
 
 .sm-panel-itemArrow {
-  color: #B0B0B0; /* Subtle grey arrow */
+  color: #B0B0B0;
+  /* Subtle grey arrow */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -203,6 +218,26 @@
 
 .sm-panel-item:hover {
   color: var(--sm-accent, #D4AF37);
+}
+
+.sm-panel-item:hover .sm-panel-itemLabel {
+  background: linear-gradient(110deg,
+      var(--sm-accent, #D4AF37) 0%,
+      var(--sm-accent, #D4AF37) 40%,
+      #ffffff 50%,
+      var(--sm-accent, #D4AF37) 60%,
+      var(--sm-accent, #D4AF37) 100%);
+  background-size: 200% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: shine 1.5s linear infinite;
+}
+
+@keyframes shine {
+  to {
+    background-position: -200% center;
+  }
 }
 
 .sm-panel-list[data-numbering] {
@@ -240,6 +275,7 @@
 }
 
 @media (max-width: 1024px) {
+
   .staggered-menu-panel,
   .sm-prelayers {
     width: 100%;

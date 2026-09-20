@@ -19,7 +19,7 @@ function RobedHand() {
   useEditorialReveal(headlineRef);
 
   return (
-    <section id="robed-hand" className="robed-hand section" data-bg="#f3efe6">
+    <section id="robed-hand" className="robed-hand section" data-bg="#ffffff">
       <div className="container robed-hand__grid">
         <div className="robed-hand__copy">
           <p className="eyebrow">The human word, last</p>

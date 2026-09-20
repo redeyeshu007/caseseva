@@ -1,0 +1,224 @@
+/* "Where cases go cold" — six stages on one horizontal line.
+   Six equal columns; each stage's point sits at the left edge of its column and
+   its segment of the line runs to the next point, so the segments join into one
+   continuous line. Brass appears only on the numbers and the points. On narrow
+   screens the row scrolls sideways (scrollbar hidden) instead of wrapping. */
+
+.cold-seq {
+  --cs-ink: #0b0b0b;
+  --cs-line: rgba(11, 11, 11, 0.27); /* the neutral line */
+  --cs-rail: 20px; /* height of the row holding the points */
+
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+/* ── Stage ─────────────────────────────────────────── */
+
+.cold-stage {
+  --p: 0; /* this stage's own 0–1 progress (set by ColdCaseSequence) */
+  --pn: 0; /* the next stage's progress */
+  --o: 0.36; /* future: muted */
+  position: relative;
+  min-width: 0;
+}
+
+.cold-stage[data-state="current"],
+.cold-stage[data-state="static"] {
+  --o: 1;
+}
+
+.cold-stage[data-state="past"] {
+  --o: 0.62;
+}
+
+.cold-stage__num,
+.cold-stage__dot,
+.cold-stage__title {
+  opacity: var(--o);
+  transition: opacity 0.5s ease, color 0.3s ease, transform 0.3s ease;
+}
+
+.cold-stage__num {
+  display: block;
+  margin-bottom: 0.95rem; /* space between the number and the line */
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--color-brass);
+}
+
+.cold-stage__rail {
+  position: relative;
+  height: var(--cs-rail);
+}
+
+.cold-stage__title {
+  margin: 0.9rem 0 0;
+  padding-right: 0.9rem;
+  font-size: clamp(0.78rem, 1.05vw, 1.05rem);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  line-height: 1.25;
+  color: rgba(11, 11, 11, 0.7);
+}
+
+.cold-stage[data-state="current"] .cold-stage__title,
+.cold-stage[data-state="static"] .cold-stage__title {
+  color: var(--cs-ink);
+}
+
+/* the stage's point: brass, and slightly larger while current */
+.cold-stage__dot {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  z-index: 1;
+  width: 7px;
+  height: 7px;
+  margin-top: -3.5px;
+  border-radius: 50%;
+  background: var(--color-brass);
+  transform: scale(calc(0.5 + min(1, calc(var(--p) * 6)) * 0.5));
+}
+
+.cold-stage[data-state="current"] .cold-stage__dot {
+  transform: scale(1.25);
+}
+
+.cold-stage[data-state="static"] .cold-stage__dot {
+  transform: none;
+}
+
+/* ── The line ──────────────────────────────────────── */
+
+/* Runs from this point's centre to the next point's centre */
+.cold-seg {
+  position: absolute;
+  left: 3.5px;
+  top: 50%;
+  width: 100%;
+  height: 0;
+}
+
+.cs-main,
+.cs-frag {
+  position: absolute;
+  display: block;
+  height: 1px;
+  background: var(--cs-line);
+}
+
+/* 01–04 · the line is drawn out from its point */
+.cs-main {
+  left: 0;
+  top: 0;
+  width: 100%;
+  --draw: clamp(0, calc(var(--p) * 1.15), 1);
+  clip-path: inset(0 calc((1 - var(--draw)) * 100%) 0 0);
+}
+
+/* 05 · the line is drawn, then breaks into controlled fragments.
+   06 · (via --pn) the last fragments fall back and leave a gap before the final point. */
+.cs-frags {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 1px;
+  --draw: clamp(0, calc(var(--p) * 2.4), 1);
+  --f: clamp(0, calc((var(--p) - 0.45) * 1.9), 1);
+  clip-path: inset(0 calc((1 - var(--draw)) * 100%) 0 0);
+}
+
+.cs-frag {
+  top: 0;
+  left: calc((var(--l0) + (var(--l1) - var(--l0)) * var(--f) + (var(--l2) - var(--l1)) * var(--pn)) * 1%);
+  width: calc((var(--w0) + (var(--w1) - var(--w0)) * var(--f) + (var(--w2) - var(--w1)) * var(--pn)) * 1%);
+}
+
+/* ── Hover: very subtle ────────────────────────────── */
+
+@media (hover: hover) {
+  .cold-stage:hover .cold-stage__num {
+    color: #a8871a; /* a touch deeper brass */
+  }
+
+  .cold-stage:hover .cold-stage__dot {
+    transform: scale(1.3);
+  }
+
+  .cold-stage:hover .cold-stage__title {
+    transform: translateX(2px);
+  }
+
+  /* a tiny brass line extends from the point */
+  .cold-stage__rail::after {
+    content: "";
+    position: absolute;
+    left: 7px;
+    top: 50%;
+    width: 0;
+    height: 1px;
+    background: var(--color-brass);
+    transition: width 0.4s var(--ease-editorial);
+  }
+
+  .cold-stage:hover .cold-stage__rail::after {
+    width: 16px;
+  }
+}
+
+/* ── Tablet: same single line, tighter type ────────── */
+
+@media (max-width: 1099px) {
+  .cold-stage__title {
+    font-size: 0.78rem;
+    letter-spacing: 0.05em;
+    padding-right: 0.6rem;
+  }
+}
+
+/* ── Mobile: the line scrolls sideways; it never wraps or turns vertical ── */
+
+@media (max-width: 899px) {
+  .cold-seq {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0.5rem 0 0.75rem;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+  }
+
+  .cold-seq::-webkit-scrollbar {
+    display: none;
+  }
+
+  .cold-stage {
+    flex: 0 0 min(44vw, 176px);
+  }
+
+  .cold-seq:focus-visible {
+    outline: 1px solid var(--color-brass);
+    outline-offset: 4px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cold-stage__num,
+  .cold-stage__dot,
+  .cold-stage__title,
+  .cold-stage__rail::after {
+    transition: none;
+  }
+
+  .cold-stage:hover .cold-stage__title,
+  .cold-stage:hover .cold-stage__dot {
+    transform: none;
+  }
+}

@@ -59,9 +59,9 @@ function Boundaries() {
   }, [reducedMotion]);
 
   return (
-    <section id="boundaries" className="boundaries section" data-bg="#000000">
+    <section id="boundaries" className="boundaries section" data-bg="#ffffff">
       <div className="container">
-        <p className="eyebrow on-dark">Standing</p>
+        <p className="eyebrow on-light">Standing</p>
         <ul ref={listRef} className="boundaries__list">
           {STATEMENTS.map((statement) => (
             <li key={statement} className="boundaries__statement">
