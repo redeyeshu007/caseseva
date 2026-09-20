@@ -1,94 +1,534 @@
-.robed-hand__grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(2rem, 5vw, 5rem);
-  align-items: center;
-}
+/* ==========================================================================
+   Act IX — The Robed Hand / Circular Decision Wheel
+   Precision Legal Decision Mechanism & Human Advocate Judgment Layer
+   ========================================================================== */
 
-.robed-hand__headline {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: clamp(1.9rem, 3.4vw, 2.7rem);
-  margin: 1rem 0 2.5rem;
-  color: var(--color-black);
-}
-
-.robed-hand__actions {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 1.1rem;
-}
-
-.robed-hand__action {
-  display: flex;
-  align-items: baseline;
-  gap: 1rem;
-  font-size: 1rem;
-  color: rgba(0, 0, 0, 0.8);
-}
-
-.robed-hand__action-index {
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: var(--color-brass);
-}
-
-.robed-hand__visual {
+.robes-section {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: var(--color-white);
+  padding: clamp(3rem, 6vh, 6rem) 0;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
-.robed-hand__svg {
-  width: min(100%, 320px);
+.robes-container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--container-pad-x);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 }
 
-.robed-hand__document {
-  fill: var(--color-white);
-  stroke: rgba(0, 0, 0, 0.15);
+/* --------------------------------------------------------------------------
+   Desktop Circular Decision Wheel Stage
+   Occupies ~65-75vw on desktop (capped at 920px)
+   -------------------------------------------------------------------------- */
+
+.robes-wheel {
+  position: relative;
+  width: min(880px, 80vw);
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
 }
 
-.robed-hand__line {
-  stroke: rgba(0, 0, 0, 0.2);
-  stroke-width: 2;
+/* Full Stage SVG Layer */
+.robes-wheel__svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
 }
 
-.robed-hand__pen-body {
-  stroke: var(--color-brass);
-  stroke-width: 3;
+/* Concentric Geometric Rings */
+.robes-geo-ring {
+  fill: none;
+  stroke: rgba(0, 0, 0, 0.08);
+  stroke-width: 1;
+  transition: stroke 0.4s ease;
+}
+
+.robes-geo-ring--outermost {
+  stroke: rgba(201, 162, 39, 0.22);
+}
+
+.robes-geo-ring--dashed {
+  stroke: rgba(0, 0, 0, 0.07);
+}
+
+.robes-geo-ring--middle {
+  stroke: rgba(0, 0, 0, 0.1);
+  stroke-dasharray: 4 8;
+}
+
+.robes-geo-ring--inner {
+  stroke: rgba(201, 162, 39, 0.28);
+}
+
+.robes-geo-ring--innermost {
+  stroke: rgba(0, 0, 0, 0.05);
+}
+
+/* Dial Tick Marks */
+.robes-tick--minor {
+  stroke: rgba(0, 0, 0, 0.12);
+  stroke-width: 1;
+}
+
+.robes-tick--major {
+  stroke: rgba(201, 162, 39, 0.45);
+  stroke-width: 1.5;
+}
+
+/* Cardinal and Subtle Axes */
+.robes-geo-axis {
+  stroke: rgba(201, 162, 39, 0.45);
+  stroke-width: 1;
+}
+
+.robes-geo-axis-subtle {
+  stroke: rgba(0, 0, 0, 0.06);
+  stroke-width: 1;
+  stroke-dasharray: 3 6;
+}
+
+/* Axis Labels */
+.robes-cardinal-label {
+  font-family: var(--font-body);
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: 0.36em;
+  fill: rgba(0, 0, 0, 0.55);
+  text-anchor: middle;
+}
+
+.robes-quadrant-word {
+  font-family: var(--font-body);
+  font-size: 7.5px;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  fill: rgba(201, 162, 39, 0.65);
+  text-anchor: middle;
+}
+
+/* Interactive Highlight Arcs */
+.robes-quadrant-arc {
+  fill: none;
+  stroke: transparent;
+  stroke-width: 2.5;
   stroke-linecap: round;
+  transition: stroke 0.45s var(--ease-editorial), filter 0.45s ease;
 }
 
-.robed-hand__pen-nib {
+.robes-quadrant-arc--active {
+  stroke: var(--color-brass);
+  filter: drop-shadow(0 0 8px rgba(201, 162, 39, 0.55));
+}
+
+/* Connecting Hairlines and Brass Nodes */
+.robes-node-group {
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.robes-connector-line {
+  fill: none;
+  stroke: rgba(0, 0, 0, 0.09);
+  stroke-width: 1;
+  transition: stroke 0.4s var(--ease-editorial);
+}
+
+.robes-connector-line--active {
+  stroke: var(--color-brass);
+  stroke-width: 1.5;
+}
+
+.robes-node-halo {
+  fill: none;
+  stroke: rgba(201, 162, 39, 0.35);
+  stroke-width: 1;
+  transition: all 0.4s var(--ease-editorial);
+}
+
+.robes-node-halo--active {
+  stroke: var(--color-brass);
+  stroke-width: 1.5;
+  fill: rgba(201, 162, 39, 0.08);
+  filter: drop-shadow(0 0 10px rgba(201, 162, 39, 0.6));
+}
+
+.robes-node-core {
   fill: var(--color-brass);
+  transition: all 0.4s var(--ease-editorial);
 }
 
-.robed-hand__pen {
-  animation: robed-hand-write 4.5s ease-in-out infinite;
-  transform-origin: 200px 40px;
+.robes-node-core--active {
+  fill: #dfb738;
+  filter: drop-shadow(0 0 6px rgba(201, 162, 39, 0.9));
 }
 
-@keyframes robed-hand-write {
-  0%,
-  100% {
-    transform: rotate(0deg);
-  }
-  50% {
-    transform: rotate(-4deg) translate(-3px, 2px);
-  }
+/* --------------------------------------------------------------------------
+   Center Decision Authority
+   Dominate the composition, calm, authoritative, premium
+   -------------------------------------------------------------------------- */
+
+.robes-center {
+  position: relative;
+  z-index: 10;
+  width: clamp(280px, 34vw, 360px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at center, #ffffff 45%, #fbf9f4 85%, #f4f1e8 100%);
+  border: 1px solid rgba(201, 162, 39, 0.32);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.025);
+  padding: 2.2rem;
+  box-sizing: border-box;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .robed-hand__pen {
-    animation: none;
-  }
+.robes-center__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 270px;
+}
+
+.robes-center__eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  color: var(--color-brass);
+  text-transform: uppercase;
+  margin-bottom: 0.85rem;
+}
+
+.robes-center__headline {
+  font-family: var(--font-display);
+  font-size: clamp(1.45rem, 2vw, 1.9rem);
+  line-height: 1.28;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.robes-center__headline-ai {
+  color: var(--color-black);
+  font-weight: 600;
+}
+
+.robes-center__headline-human {
+  color: var(--color-brass);
+  font-weight: 600;
+  font-style: italic;
+  margin-top: 0.15rem;
+}
+
+.robes-center__divider {
+  width: 38px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-brass), transparent);
+  margin: 0.95rem 0 0.85rem;
+}
+
+.robes-center__sub {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.robes-center__sub-line {
+  font-family: var(--font-ui, var(--font-body));
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: rgba(0, 0, 0, 0.48);
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+/* --------------------------------------------------------------------------
+   Four Action Labels Orbit (Desktop)
+   Positioned naturally in quadrants around the circle without cards
+   -------------------------------------------------------------------------- */
+
+.robes-actions-orbit {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.robes-action {
+  position: absolute;
+  pointer-events: auto;
+  cursor: pointer;
+  width: clamp(180px, 20vw, 225px);
+  transition: opacity 0.4s var(--ease-editorial), filter 0.4s ease;
+  user-select: none;
+}
+
+/* Quadrant Placements */
+.robes-action--top-left {
+  top: 8%;
+  left: 1%;
+  text-align: left;
+}
+
+.robes-action--top-right {
+  top: 8%;
+  right: 1%;
+  text-align: right;
+}
+
+.robes-action--bottom-left {
+  bottom: 8%;
+  left: 1%;
+  text-align: left;
+}
+
+.robes-action--bottom-right {
+  bottom: 8%;
+  right: 1%;
+  text-align: right;
+}
+
+/* Header with Number and Subtitle */
+.robes-action__header {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-bottom: 0.35rem;
+}
+
+.robes-action--top-right .robes-action__header,
+.robes-action--bottom-right .robes-action__header {
+  justify-content: flex-end;
+}
+
+.robes-action__num {
+  font-family: var(--font-body);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--color-brass);
+}
+
+.robes-action__meta-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background-color: rgba(201, 162, 39, 0.45);
+}
+
+.robes-action__ring-label {
+  font-family: var(--font-body);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: rgba(0, 0, 0, 0.35);
+  text-transform: uppercase;
+}
+
+.robes-action__title {
+  font-family: var(--font-display);
+  font-size: clamp(0.95rem, 1.25vw, 1.15rem);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  line-height: 1.25;
+  color: var(--color-black);
+  margin: 0 0 0.45rem;
+  transition: color 0.35s ease;
+}
+
+.robes-action__desc {
+  font-family: var(--font-body);
+  font-size: clamp(0.78rem, 0.9vw, 0.84rem);
+  line-height: 1.48;
+  color: rgba(0, 0, 0, 0.62);
+  margin: 0;
+  transition: color 0.35s ease;
+}
+
+/* Interaction States */
+.robes-action--active .robes-action__title {
+  color: #000000;
+}
+
+.robes-action--active .robes-action__desc {
+  color: rgba(0, 0, 0, 0.88);
+}
+
+.robes-action--active .robes-action__ring-label {
+  color: var(--color-brass);
+}
+
+.robes-action--muted {
+  opacity: 0.32;
+  filter: blur(0.35px);
+}
+
+/* --------------------------------------------------------------------------
+   Responsive Mobile Flow
+   Hidden on desktop, activated on smaller screens (< 860px)
+   -------------------------------------------------------------------------- */
+
+.robes-mobile-flow {
+  display: none;
 }
 
 @media (max-width: 860px) {
-  .robed-hand__grid {
+  .robes-section {
+    padding: clamp(4rem, 8vh, 6rem) 0;
+    min-height: auto;
+  }
+
+  .robes-wheel {
+    display: none;
+  }
+
+  .robes-mobile-flow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  /* Central Decision Emblem (Mobile) */
+  .robes-mobile-center {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .robes-mobile-center__ring {
+    width: min(320px, 86vw);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, #ffffff 40%, #fbf9f4 85%, #f4f1e8 100%);
+    border: 1px solid rgba(201, 162, 39, 0.35);
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.03);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 1.8rem;
+    box-sizing: border-box;
+  }
+
+  /* Mobile Axis Connector */
+  .robes-mobile-axis {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 1.8rem 0;
+  }
+
+  .robes-mobile-axis-tag {
+    font-family: var(--font-body);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    color: var(--color-brass);
+  }
+
+  .robes-mobile-axis-line {
+    width: 1px;
+    height: 36px;
+    background: linear-gradient(180deg, var(--color-brass), rgba(201, 162, 39, 0.2));
+  }
+
+  /* Mobile Actions List */
+  .robes-mobile-actions {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .robes-mobile-actions__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+
+  .robes-mobile-action {
+    cursor: pointer;
+    padding: 0.75rem 0.5rem;
+    border-left: 2px solid rgba(201, 162, 39, 0.25);
+    transition: all 0.35s ease;
+    user-select: none;
+  }
+
+  .robes-mobile-action--active {
+    border-left-color: var(--color-brass);
+    background-color: rgba(201, 162, 39, 0.04);
+  }
+
+  .robes-mobile-action--muted {
+    opacity: 0.4;
+  }
+
+  .robes-mobile-action .robes-action__header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .robes-mobile-action .robes-action__title {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    margin: 0 0 0.35rem;
+  }
+
+  .robes-mobile-action .robes-action__desc {
+    font-size: 0.8rem;
+    line-height: 1.45;
+  }
+}
+
+@media (max-width: 540px) {
+  .robes-mobile-actions__row {
     grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Accessibility: Reduced Motion
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .robes-wheel,
+  .robes-center,
+  .robes-action,
+  .robes-geo-ring,
+  .robes-quadrant-arc,
+  .robes-node-halo,
+  .robes-node-core {
+    transition: none !important;
+    animation: none !important;
   }
 }
