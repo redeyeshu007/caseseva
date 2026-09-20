@@ -26,7 +26,7 @@ footer.footer {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: clamp(60px, 9vh, 120px) var(--container-pad-x, clamp(1rem, 3vw, 3rem)) clamp(40px, 6vh, 80px);
+  padding: clamp(20px, 3vh, 40px) var(--container-pad-x, clamp(1rem, 3vw, 3rem)) clamp(40px, 6vh, 80px);
   box-sizing: border-box;
   overflow: hidden;
 }
