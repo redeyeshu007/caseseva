@@ -13,8 +13,8 @@
 
 .scroll-velocity-divider {
   width: 100%;
-  height: 2px;
-  background-color: #000000;
+  height: 1.5px;
+  background-color: rgba(255, 255, 255, 0.35);
   flex-shrink: 0;
 }
 

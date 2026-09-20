@@ -7,7 +7,7 @@
 .boundaries {
   position: relative;
   width: 100%;
-  background-color: var(--color-white, #ffffff);
+  background-color: #000000;
   padding: clamp(70px, 10vh, 120px) 0;
   box-sizing: border-box;
   overflow: hidden;
@@ -41,7 +41,7 @@
   font-family: 'Cormorant Garamond', var(--font-display, serif);
   font-size: clamp(38px, 5vw, 64px);
   font-weight: 600;
-  color: var(--color-black, #000000);
+  color: #ffffff;
   line-height: 1.15;
   letter-spacing: -0.02em;
   margin: 0 0 16px;
@@ -50,7 +50,7 @@
 .boundaries__subhead {
   font-family: 'Inter', sans-serif;
   font-size: clamp(16px, 1.25vw, 19px);
-  color: rgba(0, 0, 0, 0.65);
+  color: rgba(255, 255, 255, 0.7);
   line-height: 1.6;
   max-width: 560px;
   margin: 0 auto;
@@ -63,27 +63,12 @@
   overflow: hidden;
 }
 
-/* Framing Black Lines (Top & Bottom) */
-.boundaries__line {
-  width: 100%;
-  height: 2px;
-  background-color: #000000;
-}
-
-.boundaries__line--top {
-  margin-bottom: clamp(24px, 4vh, 44px);
-}
-
-.boundaries__line--bottom {
-  margin-top: clamp(24px, 4vh, 44px);
-}
-
 /* Velocity Scroll Text */
 .boundaries__scroll-text {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-weight: 800;
   letter-spacing: -0.02em;
-  color: var(--color-black, #000000);
+  color: #ffffff;
   text-transform: uppercase;
   display: inline-block;
 }

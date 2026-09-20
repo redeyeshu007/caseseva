@@ -15,11 +15,11 @@ const BOUNDARY_TEXTS = [
  */
 function Boundaries() {
   return (
-    <section id="standing" className="boundaries section" data-bg="#ffffff">
+    <section id="standing" className="boundaries section on-dark" data-bg="#000000">
       {/* Centered Editorial Header */}
       <div className="container boundaries__header-container">
         <header className="boundaries__header">
-          <p className="eyebrow on-light boundaries__eyebrow">Our Mandate</p>
+          <p className="eyebrow on-dark boundaries__eyebrow">Our Mandate</p>
           <h2 className="boundaries__headline">What We Will Not Do</h2>
           <p className="boundaries__subhead">
             Four non-negotiable legal boundaries. Fixed before anything begins.
